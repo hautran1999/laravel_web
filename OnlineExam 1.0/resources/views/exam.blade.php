@@ -10,6 +10,7 @@
       <div class="col-sm-3">
          <div class="grid">
             <div class="quiz-container">
+                  <div id="results"></div>
             </div>
          </div>
       </div>
@@ -28,10 +29,7 @@
                <div class="col-sm-4 text-center">
                   <button id="next" class="btn btn-success">Next Question</button>
                </div>
-
             </div>
-
-            <div id="results"></div>
          </div>
       </div>
    </div>
@@ -85,7 +83,7 @@
                </div>
             </div>
             <div class="grid-body">
-               <div> ${answers.join("")} </div>
+               <div class="answers">${answers.join("")}</div>
             </div>
          </div>`
          );
