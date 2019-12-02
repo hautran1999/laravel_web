@@ -141,7 +141,7 @@
          submitButton.style.display = "inline-block";
       } else {
          nextButton.style.display = "inline-block";
-         submitButton.style.display = "none";
+         submitButton.style.display = "inline-block";
       }
    }
 
