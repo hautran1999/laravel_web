@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Clever - Education &amp; Courses Template | Home</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="createexam.css">
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+        <!-- Navbar Area -->
+        <div class="clever-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="cleverNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="#">Pages</a>
+                                    <ul class="dropdown">
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="courses.html">Courses</a></li>
+                                        <li><a href="single-course.html">Single Courses</a></li>
+                                        <li><a href="instructors.html">Instructors</a></li>
+                                        <li><a href="blog.html">Blog</a></li>
+                                        <li><a href="blog-details.html">Single Blog</a></li>
+                                        <li><a href="regular-page.html">Regular Page</a></li>
+                                        <li><a href="contact.html">Contact</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="courses.html">Courses</a></li>
+                                <li><a href="instructors.html">Instructors</a></li>
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+
+                            <!-- Search Button -->
+                            <div class="search-area">
+                                <form action="#" method="post">
+                                    <input type="search" name="search" id="search" placeholder="Search">
+                                    <button><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </form>
+                            </div>
+
+                            <!-- Register / Login -->
+                            <div class="register-login-area">
+                                <a href="#" class="btn">Register</a>
+                                <a href="login.html" class="btn active">Login</a>
+                            </div>
+
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+    <main role="main">
+        <div class="container">
+            <div id="question">
+            </div>
+            <button onclick="addQuestion()" class="btn btn-sm btn-primary">Add Question</button>
+        </div>
+    </main>
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="page-footer font-small bg-dark pt-4 mt-4">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3 color-white">
+                    <h1 class="color-white">OnlineExam</h1>
+                    <p class="color-white" style="margin: 2.5% 0 0 0">OnlineExam exists to help eveyryone learn and
+                        relax more. Now
+                        you can learn everywhere, learn everytime and grow your knowledge faster.</p>
+                </div>
+                <div class="col-md-6 mt-md-0 mt-3 color-white">
+                    <div class="container text-center">
+                        <!-- Grid row-->
+                        <div class="row">
+                            <!-- Grid column -->
+                            <div class="col-md-12 py-5">
+                                <div class="mb-5 flex-center">
+                                    <a class="fb-ic">
+                                        <i class="fa fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                                    </a>
+                                    <a class="tw-ic">
+                                        <i class="fa fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                                    </a>
+                                    <a class="gplus-ic">
+                                        <i class="fa fa-google-plus fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                                    </a>
+                                    <!--Linkedin -->
+                                    <a class="li-ic">
+                                        <i class="fa fa-linkedin fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                                    </a>
+                                    <!--Instagram-->
+                                    <a class="ins-ic">
+                                        <i class="fa fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                                    </a>
+                                    <!--Pinterest-->
+                                    <a class="pin-ic">
+                                        <i class="fa fa-pinterest fa-lg white-text fa-2x"> </i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-3.4.1.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+
+    <script>
+        let number_question_answer = new Array();
+        for (var i = 1; i < 100; i++) {
+            number_question_answer[i] = new Array("K", "J", "I", "H", "G", "F", "E", "D", "C", "B", "A")
+        }
+        let number_question = 1;
+        function addAnswer(id) {
+            for (var i = 1; i < number_question; i++) {
+                if (document.getElementById('list_answer_' + i).contains(document.getElementById(id)))
+
+                    $(`<div class="form-group row showcase_row_area">
+                                    <div class="col-sm-1 showcase_text_area">
+                                        <label for="">${number_question_answer[i].pop()}</label>
+                                    </div>
+                                    <div class="col-sm-9 showcase_content_area">
+                                        <input type="text" class="form-control" id="" placeholder="">
+                                    </div>
+                                    <div class="col-sm-1 btn-group btn-group-vertical text-center" data-toggle="buttons">
+                                        <label class="btn active">
+                                            <input type="checkbox" checked name='test'><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <input type="button" class="btn btn-sm bg-danger text-white" value="Delete">
+                                    </div>
+                                </div>`).insertBefore("#answer_" + i);
+            }
+
+        }
+        function addQuestion() {
+            $(`<div class="grid">
+                    <form action="">
+                        <div class="grid-header">
+                            <div class="row">
+                                <div class="col-sm-1 text-center">${'Question ' + number_question}</div>
+                                <div class="col-sm-9 showcase_content_area">
+                                    <textarea type="text" class="form-control color-input-white" id="" placeholder=""></textarea>
+                                </div>
+                                <div class="col-sm-1 text-center mt-10">Answer</div>
+                            </div>
+                        </div>
+                        <div class="grid-body" id="${'list_answer_' + number_question}">
+                            <div class="item-wrapper" id="${'answer_' + number_question}">
+                            </div>
+                            <input type="button" id="${'add_' + number_question}" onclick="addAnswer(this.id)"
+                                class="btn btn-sm bg-primary text-white ml-50" value="Add answer">
+                            <input type="button" class="btn btn-sm bg-danger text-white" value="Delete Question">
+                        </div>
+                    </form>
+                </div>`).insertBefore("#question");
+            number_question++;
+        }
+        $(document).ready(function () {
+            addQuestion();
+        });
+    </script>
+</body>
+
+</html>

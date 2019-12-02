@@ -1,0 +1,14 @@
+body {
+    background-color: #fbfcfd;
+}
+.grid {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 10px -5px rgba(183, 192, 206, 0.15);
+    margin-bottom: 15px;
+    border: 1px solid rgba(238, 238, 238, 0);
+}
+
+.grid-body {
+    padding: 20px 25px 20px;
+}

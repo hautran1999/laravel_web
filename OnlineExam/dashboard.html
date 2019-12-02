@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="dashboard.css">
+
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area mb-4">
+
+        <!-- Navbar Area -->
+        <div class="clever-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between container" id="cleverNav">
+
+                    <a class="nav-brand" href="index.html">OnlineExam</a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="dashboard.html">Dashboard</a></li>
+                                <li><a href="instructors.html">Exam</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+
+                            <!-- Search Button -->
+                            <div class="search-area">
+                                <form action="#" method="post">
+                                    <input type="search" name="search" id="search" placeholder="Search">
+                                    <button><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </form>
+                            </div>
+
+                            <!-- Register / Login -->
+                            <div class="register-login-area">
+                                <a href="login.html" class="btn">Register</a>
+                                <a href="login.html" class="btn">Login</a>
+                            </div>
+
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+    <main>
+        <div class="container">
+            <div class="text-center header-text">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm container your-create">
+                        <div class="row">
+                            <div class="col-sm-6 card-content">
+                                <h1>0</h1>
+                                <h3>Created</h3>
+                            </div>
+                            <div class="col-sm-6 card-content"><i class="fa fa-edit icon-size"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm container your-running">
+                        <div class="row">
+                            <div class="col-sm-6 card-content">
+                                <h1>0</h1>
+                                <h3>Running</h3>
+                            </div>
+                            <div class="col-sm-6 card-content"><i class="fa fa-rocket icon-size"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm container your-join">
+                        <div class="row">
+                            <div class="col-sm-6 card-content">
+                                <h1>0</h1>
+                                <h3>Join</h3>
+                            </div>
+                            <div class="col-sm-6 card-content"><i class="fa fa-mortar-board icon-size"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search">
+                <h3 class="d-inline">My exam created</h3>
+                <form class="form-inline my-2 my-lg-0 search-form">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="hero-content text-center">
+                <a href="#" onclick="document.getElementById('create').style.display='block'"
+                    class="btn clever-btn">Create exam</a>
+                <div id="create" class="modal">
+                    <form action="" method="POST">
+                        <div class="animate container container-modal bg-light">
+                            <span onclick="document.getElementById('create').style.display='none'" class="close"
+                                title="Close Modal">&times;</span>
+                            <div class="container">
+                                <h2 class="pt-2 pb-4">Create exam</h2>
+
+                                <label style="float: left;">
+                                    <h6>Name Exam :</h6>
+                                </label>
+                                <input type="text" class="form-control" required>
+                                <label style="float: left;">
+                                    <h6>Describe Exam:</h6>
+                                </label>
+                                <textarea class="form-control"></textarea>
+                                <a href="#" class="btn clever-btn mt-4 mb-4 bg-dark">Create Exam</a>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="page-footer font-small bg-dark pt-4 mt-4">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3 color-white">
+                    <h1 class="color-white">OnlineExam</h1>
+                    <p class="color-white" style="margin: 2.5% 0 0 0">OnlineExam exists to help eveyryone learn and
+                        relax more. Now
+                        you can learn everywhere, learn everytime and grow your knowledge faster.</p>
+                </div>
+                <div class="col-md-6 mt-md-0 mt-3 color-white">
+                    <div class="container text-center">
+                        <!-- Grid row-->
+                        <div class="row">
+                            <!-- Grid column -->
+                            <div class="col-md-12 py-5">
+                                <div class="mb-5 flex-center">
+                                    <a class="fb-ic">
+                                        <i class="fa fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                                    </a>
+                                    <a class="tw-ic">
+                                        <i class="fa fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                                    </a>
+                                    <a class="gplus-ic">
+                                        <i class="fa fa-google-plus fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                                    </a>
+                                    <!--Linkedin -->
+                                    <a class="li-ic">
+                                        <i class="fa fa-linkedin fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                                    </a>
+                                    <!--Instagram-->
+                                    <a class="ins-ic">
+                                        <i class="fa fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                                    </a>
+                                    <!--Pinterest-->
+                                    <a class="pin-ic">
+                                        <i class="fa fa-pinterest fa-lg white-text fa-2x"> </i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-3.4.1.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+    <script>
+        var modal = document.getElementById('create');
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
