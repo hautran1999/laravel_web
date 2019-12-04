@@ -32,8 +32,9 @@
                             <a href="{{route('exam',$ex->exam_name.'&&'.$ex->exam_id)}}"
                                 class="btn btn-success"><span><i class="fa fa-graduation-cap"></i></span>
                                 Test</a>
-                            <button type="submit" class="btn btn-info"><span><i class="fa fa-bar-chart"></i></span>
-                                Info</button>
+                            <a href="{{route('info',$ex->exam_name.'&&'.$ex->exam_id)}}" class="btn btn-info"><span><i
+                                        class="fa fa-bar-chart"></i></span>
+                                Info</a>
                         </td>
                     </tr>
                     @endforeach

@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    
+
 </head>
 
 <body>
@@ -22,11 +22,11 @@
     </div>
     @include('footer')
 
-    <script src="{{asset('js/jquery/jquery-3.4.1.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap/popper.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/plugins/plugins.js')}}"></script>
-    <script src="{{asset('js/active.js')}}"></script>
 </body>
+<script src="{{asset('js/jquery/jquery-3.4.1.min.js')}}"></script>
+<script src="{{asset('js/bootstrap/popper.min.js')}}"></script>
+<script src="{{asset('js/bootstrap/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/plugins/plugins.js')}}"></script>
+<script src="{{asset('js/active.js')}}"></script>
 
 </html>

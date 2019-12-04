@@ -83,10 +83,12 @@
                             <a href="{{route('exam',$ex->exam_name.'&&'.$ex->exam_id)}}"
                                 class="btn btn-success"><span><i class="fa fa-graduation-cap"></i></span>
                                 Test</a>
-                            <button type="submit" class="btn btn-info"><span><i class="fa fa-bar-chart"></i></span>
-                                Info</button>
-                            <button type="submit" class="btn btn-primary"><span><i class="fa fa-edit"></i></span>
-                                Edit</button>
+                            <a href="{{route('info',$ex->exam_name.'&&'.$ex->exam_id)}}" class="btn btn-info"><span><i
+                                        class="fa fa-bar-chart"></i></span>
+                                Info</a>
+                            <a href="{{route('edit',$ex->exam_name.'&&'.$ex->exam_id)}}"
+                                class="btn btn-primary"><span><i class="fa fa-edit"></i></span>
+                                Edit</a>
                             <a href="{{route('deleteexam',$ex->exam_id)}}" class="btn btn-danger"><span><i
                                         class="fa fa-trash-o"></i></span>
                                 Delete</a>

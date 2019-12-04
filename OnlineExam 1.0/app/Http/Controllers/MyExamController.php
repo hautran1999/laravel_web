@@ -25,8 +25,8 @@ class MyExamController extends Controller
      */
     public function getMyExam()
     {
-        $exam = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_describe','exam.created_at','exam.id', 'name')->where('exam.id', '=', \Auth::user()->id)->get();
-        return view('myexam', ['exam' => $exam, 'i' => 1]);
+        $exam = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_describe', 'exam.created_at', 'exam.id', 'name')->where('exam.id', '=', \Auth::user()->id)->get();
+        return view('myExam', ['exam' => $exam, 'i' => 1]);
     }
     public function postMyExam(Request $request)
     {
@@ -53,7 +53,7 @@ class MyExamController extends Controller
     {
         $info = explode('&', $examname);
         if ($info[0] == \Auth::user()->id) {
-            return view('createexam', ['info' => $info]);
+            return view('createExam', ['info' => $info]);
         } else {
             return view('404');
         }
@@ -70,5 +70,16 @@ class MyExamController extends Controller
             Question::insert($arr);
         }
         return redirect('/myexam');
+    }
+    public function getInfoExam($id)
+    {
+        
+        $info = Exam::where('exam_id', '=', explode('&&', $id)[1])->first();
+        
+        return view('infoMyExam', ['info' => $info]);
+    }
+    public function getEditExam($id)
+    {
+        return view('404');
     }
 }

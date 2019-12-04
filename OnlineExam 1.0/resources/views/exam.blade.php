@@ -9,8 +9,12 @@
    <div class="row">
       <div class="col-sm-3">
          <div class="grid">
-            <div class="quiz-container">
+            <div class="grid-body">
+               <div style="height: 300px">
                   <div id="results"></div>
+                  <div id="test"></div>
+
+               </div>
             </div>
          </div>
       </div>
@@ -24,7 +28,11 @@
                   <button id="previous" class="btn btn-success">Previous Question</button>
                </div>
                <div class="col-sm-4 text-center">
-                  <button id="submit" class="btn btn-danger">Submit Quiz</button>
+                  <form action="{{route('postexam',$info)}}" id='form' method="post">
+                     @csrf
+                     <input type="hidden" name="test" value="name">
+                     <button id="submit" class="btn btn-danger">Submit Quiz</button>
+                  </form>
                </div>
                <div class="col-sm-4 text-center">
                   <button id="next" class="btn btn-success">Next Question</button>
@@ -46,13 +54,14 @@
       const output = [];
 
     // for each question...
+      number = 0;
       myQuestions.forEach((currentQuestion, questionNumber) => {
       // we'll want to store the list of answer choices
          const answers = [];
-
+         number++;
       // and for each available answer...
       for (letter in currentQuestion.answers) {
-         var i=letter;
+         var i = letter;
          if(letter == 0){letter = 'A';}
          if(letter == 1){letter = 'B';}
          if(letter == 2){letter = 'C';}
@@ -78,7 +87,7 @@
          `<div class="slide">
             <div class="grid-header">
                <div class="row">
-                  <div class="col-sm-2 text-center">Question:</div>
+                  <div class="col-sm-2 text-center">Question ${number} :</div>
                   <div class="col-sm-10 question border rounded border-dark">${currentQuestion.question}</div>
                </div>
             </div>
@@ -96,10 +105,7 @@
    function showResults() {
     // gather answer containers from our quiz
       const answerContainers = quizContainer.querySelectorAll(".answers");
-
-    // keep track of user's answers
-      let numCorrect = 0;
-
+      let arr = [];
     // for each question...
       myQuestions.forEach((currentQuestion, questionNumber) => {
       // find selected answer
@@ -108,21 +114,14 @@
       const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
       // if answer is correct
-      if (userAnswer === currentQuestion.correctAnswer) {
-        // add to the number of correct answers
-        numCorrect++;
-
-        // color the answers green
-        answerContainers[questionNumber].style.color = "lightgreen";
-      } else {
-        // if answer is wrong or blank
-        // color the answers red
-        answerContainers[questionNumber].style.color = "red";
+      if(userAnswer == null){
+         arr.push('null');
+      }else{
+         arr.push(userAnswer);
       }
+      
    });
-
-    // show number of correct answers out of total
-      resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+      $('#form').append(`<input type="hidden" name="score" value="${arr}">`)
    }
 
    function showSlide(n) {

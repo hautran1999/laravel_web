@@ -3,6 +3,7 @@
 }
 
 .classy-nav-container a, .classy-nav-container a:focus, .classy-nav-container a:hover {
+    
     -webkit-transition-duration: .5s;
     text-decoration: none;
     outline: 0;
