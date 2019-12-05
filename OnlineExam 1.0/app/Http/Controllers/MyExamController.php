@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exam;
 use App\Question;
+use App\Scores;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,13 +33,16 @@ class MyExamController extends Controller
     {
         $arr = [
             'exam_name' => $request->exam_name,
+            'exam_password' => md5($request->exam_password),
             'exam_describe' => $request->exam_describe,
             'id' => \Auth::user()->id,
-            'created_at' => date("Y-m-d H:i:s")
+            'created_at' => date("Y-m-d H:i:s"),
+            'exam_time' => $request->exam_time,
+            'exam_kind' => $request->input('exam_kind')
         ];
         Exam::insert($arr);
         $info = Exam::where($arr)->first();
-        $str = '/myexam/createexam/' . \Auth::user()->id . '&' . $info->exam_name . '&' . $info->exam_id;
+        $str = '/myexam/createexam/' . \Auth::user()->id . '&&' . $info->exam_name . '&&' . $info->exam_id;
 
         return redirect($str);
     }
@@ -47,11 +51,12 @@ class MyExamController extends Controller
         //echo $id;
         Exam::where('exam_id', '=', $id)->delete();
         Question::where('exam_id', '=', $id)->delete();
+        Scores::where('exam_id', '=', $id)->delete();
         return redirect('/myexam');
     }
     public function getCreateExam($examname)
     {
-        $info = explode('&', $examname);
+        $info = explode('&&', $examname);
         if ($info[0] == \Auth::user()->id) {
             return view('createExam', ['info' => $info]);
         } else {
@@ -73,10 +78,10 @@ class MyExamController extends Controller
     }
     public function getInfoExam($id)
     {
-        
+
         $info = Exam::where('exam_id', '=', explode('&&', $id)[1])->first();
-        
-        return view('infoMyExam', ['info' => $info]);
+        $list = Scores::join('users', 'scores.id', '=', 'users.id')->select('scores', 'exam_id', 'scores.created_at', 'name')->where('exam_id', '=', explode('&&', $id)[1])->get();
+        return view('infoMyExam', ['info' => $info, 'list' => $list, 'i' => 1]);
     }
     public function getEditExam($id)
     {

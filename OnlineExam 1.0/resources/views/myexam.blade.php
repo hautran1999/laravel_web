@@ -80,7 +80,7 @@
                         <td>{{$ex->exam_describe}}</td>
                         <td>{{$ex->created_at}}</td>
                         <td>
-                            <a href="{{route('exam',$ex->exam_name.'&&'.$ex->exam_id)}}"
+                            <a href="{{route('pass_exam',$ex->exam_name.'&&'.$ex->exam_id)}}"
                                 class="btn btn-success"><span><i class="fa fa-graduation-cap"></i></span>
                                 Test</a>
                             <a href="{{route('info',$ex->exam_name.'&&'.$ex->exam_id)}}" class="btn btn-info"><span><i
@@ -89,7 +89,7 @@
                             <a href="{{route('edit',$ex->exam_name.'&&'.$ex->exam_id)}}"
                                 class="btn btn-primary"><span><i class="fa fa-edit"></i></span>
                                 Edit</a>
-                            <a href="{{route('deleteexam',$ex->exam_id)}}" class="btn btn-danger"><span><i
+                            <a href="{{route('delete_exam',$ex->exam_id)}}" class="btn btn-danger"><span><i
                                         class="fa fa-trash-o"></i></span>
                                 Delete</a>
                         </td>
@@ -104,22 +104,49 @@
             class="btn clever-btn">Create
             exam</button>
         <div id="create" class="modal">
-            <form action="{{route('postmyexam')}}" method="POST">
+            <form action="{{route('post_myexam')}}" method="POST">
                 @csrf
                 <div class="animate container container-modal bg-light">
                     <span onclick="document.getElementById('create').style.display='none'" class="close"
                         title="Close Modal">&times;</span>
                     <div class="container">
-                        <h2 class="pt-2 pb-4">Create exam</h2>
+                        <h2 class="pt-2 pb-2">Create exam</h2>
 
                         <label style="float: left;">
                             <h6>Name Exam :</h6>
                         </label>
                         <input type="text" name="exam_name" class="form-control" required>
                         <label style="float: left;">
+                            <h6>Password Exam :</h6>
+                        </label>
+                        <input type="text" name="exam_password" class="form-control">
+                        <label style="float: left;">
                             <h6>Describe Exam:</h6>
                         </label>
                         <textarea class="form-control" name="exam_describe"></textarea>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label style="float: left;">
+                                    <h6>Exam Time :</h6>
+                                </label>
+                                <input type="text" name="exam_time" class="form-control" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="float: left;">
+                                    <h6>Subjects :</h6>
+                                </label>
+                                <select name="exam_kind" class="form-control">
+                                    <option>Math</option>
+                                    <option>Physical</option>
+                                    <option>Chemistry</option>
+                                    <option>Biological</option>
+                                    <option>History</option>
+                                    <option>Geography</option>
+                                    <option>Literary</option>
+                                    <option>Different</option>
+                                </select>
+                            </div>
+                        </div>
                         <button type="submit" class="btn clever-btn mt-4 mb-4 bg-dark text-white">Create Exam</button>
                     </div>
             </form>

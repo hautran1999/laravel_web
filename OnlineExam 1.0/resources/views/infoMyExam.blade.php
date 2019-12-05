@@ -43,7 +43,7 @@
                                 <p>Exam Time : </p>
                             </div>
                             <div class="col-sm-8 showcase_content_area">
-                                <p>10p</p>
+                                <p>{{$info['exam_time']}}p</p>
                             </div>
                         </div>
                     </div>
@@ -53,11 +53,42 @@
         <div class="col-md-6">
             <div class="grid">
                 <div class="grid-header">
-                    <h5></h5>
+                    <h5>Infomation of list user</h5>
                 </div>
                 <div class="grid-body">
                     <div style="height:300px">
-
+                        <div class="row showcase_row_area">
+                            <div class="col-sm-4 showcase_content_area text-right">
+                                <p>Number User : </p>
+                            </div>
+                            <div class="col-sm-8 showcase_content_area">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="row showcase_row_area">
+                            <div class="col-sm-4 showcase_content_area text-right">
+                                <p>Max Score : </p>
+                            </div>
+                            <div class="col-sm-8 showcase_content_area">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="row showcase_row_area">
+                            <div class="col-sm-4 showcase_content_area text-right">
+                                <p>Min Score : </p>
+                            </div>
+                            <div class="col-sm-8 showcase_content_area">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="row showcase_row_area">
+                            <div class="col-sm-4 showcase_content_area text-right">
+                                <p>Medium Score : </p>
+                            </div>
+                            <div class="col-sm-8 showcase_content_area">
+                                <p></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,20 +98,43 @@
         <div class="col-sm-6">
             <div class="grid">
                 <div class="grid-header">
-                    <p>Chart</p>
+                    <h5>Chart</h5>
                 </div>
                 <div class="grid-body">
-                    <div style="height:200px"></div>
+                    <div style="height:300px"></div>
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="grid">
                 <div class="grid-header">
-                    <p>List scores</p>
+                    <h5>List scores</h5>
                 </div>
                 <div class="grid-body">
-                    <div style="height:200px"></div>
+                    <div style="height:300px">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Score</th>
+                                    <th scope="col">Create Date</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($list as $list)
+                                <tr>
+                                    <th scope="row">{{$i++}}</th>
+                                    <td>{{$list->name}}</td>
+                                    <td>{{$list->scores}}</td>
+                                    <td>{{$list->created_at}}</td>
+
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

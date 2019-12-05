@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exam;
 use App\Question;
+use App\Scores;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -31,12 +32,27 @@ class ExamController extends Controller
     {
         return view('404');
     }
-
+    public function getPasswordExam($name){
+        return view('passwordExam',['name' => $name]);
+    }
+    public function postPasswordExam($name,Request $request){
+        $id = explode('&&', $name);
+        $info = Exam::where('exam_id', '=', $id[1])->select('exam_password')->first();
+        if($info['exam_password'] == md5($request->exam_password)){
+            return redirect(route('test_exam',$name));
+        
+        }
+        else{
+            return view('404');
+        }
+    }
     public function getExam($name)
     {
-        $id = explode('&&', $name)[1];
+        $id = explode('&&', $name);
+        $info = Exam::where('exam_id', '=', $id[1])->first();
+        
         $quest = [];
-        $exam = Question::where('exam_id', '=', $id)->get();
+        $exam = Question::where('exam_id', '=', $id[1])->get();
         foreach ($exam as $ex) {
             $arr = [
                 'question' => $ex['question'],
@@ -44,7 +60,7 @@ class ExamController extends Controller
             ];
             array_push($quest, $arr);
         }
-        return view('exam', ['quest' => $quest, 'info' => $id]);
+        return view('exam', ['quest' => $quest, 'info' => $info]);
     }
     public function postExam(Request $request, $name)
     {
@@ -58,7 +74,16 @@ class ExamController extends Controller
             }
             $number++;
         }
-        $scores = $true * 100 / $number;
+        $scores =  round((($true * 10) / $number) * 100) / 100;
+        $arr = [
+            'scores' => $scores,
+            'id' => \Auth::user()->id,
+            'created_at' => date("Y-m-d H:i:s"),
+            'exam_id' => $name,
+
+        ];
+        Scores::insert($arr);
+
         return view('showScore', ['scores' => $scores, 'true' => $true, 'number' => $number]);
     }
 }

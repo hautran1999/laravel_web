@@ -5,7 +5,7 @@
 <div class="mt-4 mb-4">
     <div class="container">
 
-        <form action="{{route('postcreateexam'),$info['id']}}" method="POST">
+        <form action="{{route('post_create_exam')}}" method="POST">
             @csrf
             <div class="text-center header-text">
                 <input type="hidden" name="exam_id" value={{$info[2]}}>

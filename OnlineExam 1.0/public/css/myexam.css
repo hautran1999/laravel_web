@@ -1,7 +1,9 @@
 body {
     background-color: #fbfcfd;
 }
-
+label{
+    margin: 5px 0 0 0;
+}
 .header-text {
     padding: 2.5% 0 2.5% 0;
 }
@@ -71,7 +73,7 @@ body {
     min-height: 400px;
     height: auto;
     border-radius: 5px;
-    margin: 5% auto;
+    margin: 2.5% auto;
     box-shadow: 0 9px 50px hsla(20, 67%, 75%, .31);
     padding: 2.5%
 }
