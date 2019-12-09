@@ -96,7 +96,7 @@
                 $('#delete_question_' + (number_question-1)).hide();
             number_question++;
         }
-        $(document).ready(function () {
+        document.addEventListener('DOMContentLoaded', function() {
             addQuestion();
         });
 </script>

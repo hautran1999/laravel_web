@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -14,6 +16,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(Auth::check()){
+            if(session()->has(Auth::user()->id)){
+                return view('messenger',['name'=>session()->get(Auth::user()->id)['exam_name']]);
+            }
+            else{
+                return view('home');
+            }
+        }
+        else{
+            return view('home');
+        }
+    }
+    
+    public function postCheckIndex(Request $request){
+        if($request->check == 'yes'){
+            $name = session()->get(Auth::user()->id)['exam_name'];
+            $id = session()->get(Auth::user()->id)['exam_id'];
+            return redirect('/exam/test/password/'.$name.'&&'.$id);
+        }
+        else{
+            session()->forget(Auth::user()->id);
+            return redirect('/');
+        }
     }
 }

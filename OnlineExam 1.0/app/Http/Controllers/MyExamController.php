@@ -18,6 +18,7 @@ class MyExamController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('checksession');
     }
     /**
      * Show the application dashboard.
@@ -54,9 +55,9 @@ class MyExamController extends Controller
         Scores::where('exam_id', '=', $id)->delete();
         return redirect('/myexam');
     }
-    public function getCreateExam($examname)
+    public function getCreateExam($name)
     {
-        $info = explode('&&', $examname);
+        $info = explode('&&', $name);
         if ($info[0] == \Auth::user()->id) {
             return view('createExam', ['info' => $info]);
         } else {
@@ -85,6 +86,32 @@ class MyExamController extends Controller
     }
     public function getEditExam($id)
     {
-        return view('404');
+        $name = explode('&&', $id);
+        $info = Exam::where('exam_id', '=', $name[1])->first();
+
+        $quest = [];
+        $exam = Question::where('exam_id', '=', $name[1])->get();
+        foreach ($exam as $ex) {
+            $arr = [
+                'question' => $ex['question'],
+                'answers' => explode('***', $ex['answer']),
+                'true' => $ex['rightAnswer']
+            ];
+            array_push($quest, $arr);
+        }
+        return view('editExam', ['quest' => $quest, 'info' => $info]);
+    }
+    public function postEditExam(Request $request,$id){
+        Question::where('exam_id', '=', $id)->delete();
+        foreach ($request->input('question') as $question) {
+            $arr = [
+                'exam_id' => $id,
+                'question' => $question[0],
+                'answer' => implode('***', $question[1]),
+                'rightAnswer' => implode(' ', $question[2])
+            ];
+            Question::insert($arr);
+        }
+        return redirect('/myexam');
     }
 }

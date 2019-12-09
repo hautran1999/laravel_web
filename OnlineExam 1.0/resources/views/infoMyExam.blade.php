@@ -13,7 +13,7 @@
                     <h5>Exam infomation</h5>
                 </div>
                 <div class="grid-body">
-                    <div style="height:300px">
+                    <div>
                         <div class="row showcase_row_area">
                             <div class="col-sm-4 showcase_content_area text-right">
                                 <p>Exam Name : </p>
@@ -56,7 +56,7 @@
                     <h5>Infomation of list user</h5>
                 </div>
                 <div class="grid-body">
-                    <div style="height:300px">
+                    <div>
                         <div class="row showcase_row_area">
                             <div class="col-sm-4 showcase_content_area text-right">
                                 <p>Number User : </p>
@@ -111,7 +111,7 @@
                     <h5>List scores</h5>
                 </div>
                 <div class="grid-body">
-                    <div style="height:300px">
+                    <div>
                         <table class="table table-hover">
                             <thead>
                                 <tr>
