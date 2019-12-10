@@ -17,11 +17,11 @@
 </head>
 
 <body>
-    @include('header')
+    @include('layouts.header')
     <div>
         @yield('content')
     </div>
-    @include('footer')
+    @include('layouts.footer')
 
 </body>
 <script src="{{asset('js/jquery/jquery-3.4.1.min.js')}}"></script>
