@@ -26,20 +26,24 @@
 				<div class="quiz-container">
 					<div id="quiz"></div>
 				</div>
-				<div class="row">
-					<div class="col-sm-4 text-center">
-						<button id="previous" class="btn btn-success">Previous Question</button>
-					</div>
-					<div class="col-sm-4 text-center">
-						<form action="{{route('post_exam',$info['exam_id'])}}" id='form' method="post">
-							@csrf
-							<input type="hidden" name="test" value="name">
-							<button id="submit" class="btn btn-danger">Submit Quiz</button>
+			</div>
+			<div class="grid">
+				<div class="grid-body">
+					<div class="row">
+						<div class="col-sm-4 text-center">
+							<button id="previous" class="btn btn-success">Previous Question</button>
+						</div>
+						<div class="col-sm-4 text-center">
+							<form action="{{route('post_exam',$info['exam_id'])}}" id='form' method="post">
+								@csrf
+								<input type="hidden" name="test" value="name">
+								<button id="submit" class="btn btn-danger">Submit Quiz</button>
 
-						</form>
-					</div>
-					<div class="col-sm-4 text-center">
-						<button id="next" class="btn btn-success">Next Question</button>
+							</form>
+						</div>
+						<div class="col-sm-4 text-center">
+							<input type="button" id="next" class="btn btn-success" value="Next Question">
+						</div>
 					</div>
 				</div>
 			</div>

@@ -23,14 +23,6 @@
                             </div>
                         </div>
                         <div class="row showcase_row_area">
-                                <div class="col-sm-4 showcase_content_area text-right">
-                                    <p>Exam Subject : </p>
-                                </div>
-                                <div class="col-sm-8 showcase_content_area">
-                                    <p>{{$info['exam_kind']}}</p>
-                                </div>
-                            </div>
-                        <div class="row showcase_row_area">
                             <div class="col-sm-4 showcase_content_area text-right">
                                 <p>Exam Describe : </p>
                             </div>
@@ -102,18 +94,8 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="grid">
-                <div class="grid-header">
-                    <h5>Chart</h5>
-                </div>
-                <div class="grid-body">
-                    <div style="height:300px"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
+    <div>
+        <div>
             <div class="grid">
                 <div class="grid-header">
                     <h5>List scores</h5>
@@ -127,7 +109,6 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Score</th>
                                     <th scope="col">Create Date</th>
-
                                 </tr>
                             </thead>
                             <tbody>

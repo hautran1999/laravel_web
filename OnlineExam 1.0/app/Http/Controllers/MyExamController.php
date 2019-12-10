@@ -28,8 +28,10 @@ class MyExamController extends Controller
      */
     public function getMyExam()
     {
-        $exam = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_describe', 'exam.created_at', 'exam.id', 'name')->where('exam.id', '=', \Auth::user()->id)->get();
-        return view('myExam', ['exam' => $exam, 'i' => 1]);
+        $exam_created = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name','exam_kind','exam_describe', 'exam.created_at', 'exam.id', 'name')->where('exam.id', '=', Auth::user()->id)->get();
+        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name','exam_kind', 'exam.exam_describe', 'scores.id',)->where('scores.id', '=', Auth::user()->id)->distinct()->get();
+        return view('myExam', ['exam_created' => $exam_created, 'exam_join' => $exam_join, 'i' => 1, 'j' => 1]);
+        //echo '<pre>'; print_r($exam_join); echo '</pre>';
     }
     public function postMyExam(Request $request)
     {
@@ -79,7 +81,6 @@ class MyExamController extends Controller
     }
     public function getInfoExam($id)
     {
-
         $info = Exam::where('exam_id', '=', explode('&&', $id)[1])->first();
         $list = Scores::join('users', 'scores.id', '=', 'users.id')->select('scores', 'exam_id', 'scores.created_at', 'name')->where('exam_id', '=', explode('&&', $id)[1])->get();
         return view('infoMyExam', ['info' => $info, 'list' => $list, 'i' => 1]);
@@ -103,6 +104,7 @@ class MyExamController extends Controller
     }
     public function postEditExam(Request $request, $id)
     {
+        Scores::where('exam_id', '=', $id)->delete();
         Question::where('exam_id', '=', $id)->delete();
         foreach ($request->input('question') as $question) {
             $arr = [

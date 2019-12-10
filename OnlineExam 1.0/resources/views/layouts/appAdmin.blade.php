@@ -19,27 +19,27 @@
                 <div class="grid-body">
                     <table class="table table-hover">
                         <tbody>
-                            <tr style="cursor:pointer" onclick="location.href='#'">
+                            <tr style="cursor:pointer" onclick="location.href='/admin'">
                                 <th><i class="fa fa-2x fa-home"></i></th>
                                 <td>Dashboard</td>
                             </tr>
-                            <tr style="cursor:pointer" onclick="location.href='#'">
+                            <tr style="cursor:pointer" onclick="location.href='/admin/user'">
                                 <th><i class="fa fa-2x fa-group"></i></th>
                                 <td>User</td>
                             </tr>
-                            <tr style="cursor:pointer" onclick="location.href='#'">
+                            <tr style="cursor:pointer" onclick="location.href='/admin/exam'">
                                 <th><i class="fa fa-2x fa-graduation-cap"></i></th>
                                 <td>Exam</td>
                             </tr>
-                            <tr style="cursor:pointer" onclick="location.href='#'">
+                            <tr style="cursor:pointer" onclick="location.href='/admin/question'">
                                 <th><i class="fa fa-2x fa-question-circle"></i></th>
                                 <td>Question</td>
                             </tr>
-                            <tr style="cursor:pointer" onclick="location.href='#'">
+                            <tr style="cursor:pointer" onclick="location.href='/admin/scores'">
                                 <th><i class="fa fa-2x fa-pencil"></i></th>
                                 <td>Scores</td>
                             </tr>
-                            <tr style="cursor:pointer" onclick="location.href='#'">
+                            <tr style="cursor:pointer" onclick="location.href='/admin/report'">
                                 <th><i class="fa fa-2x fa-exclamation-circle"></i></th>
                                 <td>Report</td>
                             </tr>
@@ -58,39 +58,8 @@
                 <div class="grid">
                     <div class="grid-body"></div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="grid your-user">
-                            <div class="grid-body">
-                                <h5>User</h5>
-                                <p>500</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="grid your-exam">
-                            <div class="grid-body">
-                                <h5>Exam</h5>
-                                <p>500</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="grid your-question">
-                            <div class="grid-body">
-                                <h5>Question</h5>
-                                <p>500</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="grid your-report">
-                            <div class="grid-body">
-                                <h5>Report</h5>
-                                <p>500</p>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    @yield('adminContent')
                 </div>
             </div>
         </div>

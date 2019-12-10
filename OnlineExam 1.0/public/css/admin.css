@@ -6,7 +6,21 @@ body {
     border-radius: 6px;
     box-shadow: 0 0 10px -5px rgba(183, 192, 206, 0.15);
     margin-bottom: 15px;
+    
     border: 1px solid rgba(238, 238, 238, 0);
+}
+.grid-header {
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.03rem;
+    background: #fbfcfd;
+    border-left: 3px solid #696ffb;
+    border-radius: 0px 6px 0px 0px;
+}
+.grid-body {
+    padding: 20px 25px 20px;
 }
 .menu {
     height: 100vh;
@@ -22,7 +36,4 @@ body {
 }
 .your-report {
     border-left: .25rem solid #f44336!important
-}
-.grid-body {
-    padding: 20px 25px 20px;
 }

@@ -14,6 +14,7 @@
 
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 Route::post('/postCheck', 'HomeController@postCheckIndex')->name('check');
 Route::get('/messenger/{messenger}','HomeController@getMessenger')->name('messenger');
 Auth::routes();
@@ -30,7 +31,7 @@ Route::get('/myexam/{id}', 'MyExamController@getCreateExam');
 
 Route::group(['middleware' => 'checksession'], function () {
     Route::get('/exam', 'ExamController@getExamList');
-    Route::get('/exam/info/{name}', 'ExamController@getInfoExam');
+    Route::get('/exam/info/{name}', 'ExamController@getInfoExam')->name('info_exam');
     Route::get('/exam/report/{name}', 'ExamController@getReportExam')->name('report');
     Route::post('/exam/postReport/{name}','ExamController@postReportExam')->name('post_report');
 });
@@ -41,7 +42,15 @@ Route::get('/exam/test/{name}', 'ExamController@getExam')->name('test_exam');
 Route::post('/exam/test/scores/{name}', 'ExamController@postExam')->name('post_exam');
 Route::post('/exam/test/saveresult', 'ExamController@postSaveResultExam')->name('saveResult');
 
+Route::get('/profile','UserController@getProfile')->name('profile');
 Route::get('/contact', 'ContactController@getContact');
 
 
 Route::get('/admin', 'AdminController@getAdmin')->name('admin');
+Route::get('/admin/user', 'AdminController@getUserAdmin');
+
+Route::get('/admin/exam', 'AdminController@getExamAdmin');
+
+Route::get('/admin/question', 'AdminController@getQuestionAdmin');
+Route::get('/admin/scores', 'AdminController@getScoresAdmin');
+Route::get('/admin/report', 'AdminController@getReportAdmin');
