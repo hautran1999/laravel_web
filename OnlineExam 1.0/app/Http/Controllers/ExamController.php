@@ -15,7 +15,6 @@ class ExamController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('checksession');
     }
 
     /**
@@ -114,7 +113,6 @@ class ExamController extends Controller
     }
     public function postSaveResultExam(Request $request)
     {
-
         $arr = [
             'exam_id' => $request->exam_id,
             'exam_name' => $request->exam_name,

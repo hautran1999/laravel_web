@@ -6,7 +6,8 @@ use App\Exam;
 use App\Question;
 use App\Scores;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class MyExamController extends Controller
 {
@@ -36,20 +37,19 @@ class MyExamController extends Controller
             'exam_name' => $request->exam_name,
             'exam_password' => md5($request->exam_password),
             'exam_describe' => $request->exam_describe,
-            'id' => \Auth::user()->id,
+            'id' => Auth::user()->id,
             'created_at' => date("Y-m-d H:i:s"),
             'exam_time' => $request->exam_time,
             'exam_kind' => $request->input('exam_kind')
         ];
         Exam::insert($arr);
         $info = Exam::where($arr)->first();
-        $str = '/myexam/createexam/' . \Auth::user()->id . '&&' . $info->exam_name . '&&' . $info->exam_id;
+        $str = '/myexam/createexam/' . Auth::user()->id . '&&' . $info->exam_name . '&&' . $info->exam_id;
 
         return redirect($str);
     }
     public function deleteExam($id)
     {
-        //echo $id;
         Exam::where('exam_id', '=', $id)->delete();
         Question::where('exam_id', '=', $id)->delete();
         Scores::where('exam_id', '=', $id)->delete();
@@ -58,7 +58,7 @@ class MyExamController extends Controller
     public function getCreateExam($name)
     {
         $info = explode('&&', $name);
-        if ($info[0] == \Auth::user()->id) {
+        if ($info[0] == Auth::user()->id) {
             return view('createExam', ['info' => $info]);
         } else {
             return view('404');
@@ -101,7 +101,8 @@ class MyExamController extends Controller
         }
         return view('editExam', ['quest' => $quest, 'info' => $info]);
     }
-    public function postEditExam(Request $request,$id){
+    public function postEditExam(Request $request, $id)
+    {
         Question::where('exam_id', '=', $id)->delete();
         foreach ($request->input('question') as $question) {
             $arr = [

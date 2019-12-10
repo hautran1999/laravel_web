@@ -125,6 +125,23 @@
 				minutes = minutes < 10 ? "0" + minutes : minutes;
 				seconds = seconds < 10 ? "0" + seconds : seconds;
 				display.innerHTML = minutes + " : " + seconds;
+				
+				var time = display.innerHTML;
+				var exam_id = info['exam_id'];
+				var exam_name = info['exam_name'];
+				var data = takeAnswer();
+				var _token = $('input[name="_token"]').val();
+     			$.ajax({
+      				url:"{{ route('saveResult') }}",
+      				method:"POST",
+     				data:{
+						exam_id:exam_id,
+			 			exam_name:exam_name,
+						data:data,
+						time:time,
+						_token:_token
+					},
+      			});
 				if (timer > 0) {
 					--timer;
 				} else {
@@ -182,43 +199,10 @@
 
 		function showNextSlide() {
 			showSlide(currentSlide + 1);
-			var time = display.innerHTML;
-			var exam_id = info['exam_id'];
-			var exam_name = info['exam_name'];
-			var data = takeAnswer();
-			var _token = $('input[name="_token"]').val();
-     		$.ajax({
-      		url:"{{ route('saveResult') }}",
-      		method:"POST",
-     		data:{
-				exam_id:exam_id,
-			 	exam_name:exam_name,
-				data:data,
-				time:time,
-				_token:_token
-				},
-      		});
 		}
 
 		function showPreviousSlide() {
 			showSlide(currentSlide - 1);
-			var time = display.innerHTML;
-			var exam_id = info['exam_id'];
-			var exam_name = info['exam_name'];
-			var data = takeAnswer();
-			var _token = $('input[name="_token"]').val();
-     		$.ajax({
-      		url:"{{ route('saveResult') }}",
-      		method:"POST",
-     		data:{
-				exam_id:exam_id,
-			 	exam_name:exam_name,
-				data:data,
-				time:time,
-				_token:_token
-				},
-      		});
-      		
 		}
 
 		const quizContainer = document.getElementById("quiz");
