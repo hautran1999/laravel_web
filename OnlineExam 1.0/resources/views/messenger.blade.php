@@ -7,27 +7,19 @@
         <div class="col-4">
         </div>
         <div class="col-4">
-            <form action="{{route('check')}}" method="post" id="form">
-                @csrf
-                <div class="grid">
-                    <div class="grid-header text-center">
-                        <h5>messenger</h5>
-                    </div>
-                    <div class="grid-body text-center">
-                        <p>You not finish exam : {{$name}}</p>
-                        <p>Do you want to continue</p>
-                        
-                        <input type="submit" id="no" onclick="check(this.id)" class="btn btn-danger" value="No">
-                        <input type="submit" id="yes" onclick="check(this.id)" class="btn btn-danger" value="Yes">
-                    </div>
+            <div class="grid">
+                <div class="grid-header text-center">
+                    <h5>Continue</h5>
                 </div>
-            </form>
+                <div class="grid-body text-center">
+                    
+                    <p>{{$messenger}}</p>
+
+                    <a href={{url()->previous()}} class="btn clever-btn">Back</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script>
-    function check(id){
-        $('#form').append(`<input type="hidden" name="check" value="${id}">`)
-    }
-</script>
+
 @endsection

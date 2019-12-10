@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exam;
 use App\Question;
+use App\ReportExam;
 use App\Scores;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -31,9 +32,24 @@ class ExamController extends Controller
     {
         return view('404');
     }
-    public function getReportExam()
+    public function getReportExam($name)
     {
-        return view('404');
+        $info = explode('&&', $name);
+        return view('report',['info'=>$info,'name'=>$name]);
+    }
+    public function postReportExam($name,Request $request)
+    {
+        $info = explode('&&', $name);
+        $arr = [
+            
+            'id' => Auth::user()->id,
+            'created_at' => date("Y-m-d H:i:s"),
+            'report' => $request->report,
+            'exam_id' => $info[1],
+        ];
+        ReportExam::insert($arr);
+        $messenger = 'Report successful';
+        return redirect(route('messenger',$messenger));
     }
     public function getPasswordExam($name)
     {
@@ -46,7 +62,8 @@ class ExamController extends Controller
         if ($info['exam_password'] == md5($request->exam_password)) {
             return redirect(route('test_exam', $name));
         } else {
-            return view('404');
+            $messenger = 'Exam password is unsuccessful';
+            return redirect(route('messenger',$messenger));
         }
     }
     public function getExam($name, Request $request)

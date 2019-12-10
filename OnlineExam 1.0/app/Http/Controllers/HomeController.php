@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         if(Auth::check()){
             if(session()->has(Auth::user()->id)){
-                return view('messenger',['name'=>session()->get(Auth::user()->id)['exam_name']]);
+                return view('continueExam',['name'=>session()->get(Auth::user()->id)['exam_name']]);
             }
             else{
                 return view('home');
@@ -39,5 +39,8 @@ class HomeController extends Controller
             session()->forget(Auth::user()->id);
             return redirect('/');
         }
+    }
+    public function getMessenger($messenger){
+        return view('messenger',['messenger'=>$messenger]);
     }
 }
