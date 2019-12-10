@@ -51,40 +51,45 @@ class ExamController extends Controller
     }
     public function getExam($name, Request $request)
     {
-        if (session()->has(Auth::user()->id)) {
-            $id = session()->get(Auth::user()->id)['exam_id'];
-            $info = Exam::where('exam_id', '=', $id)->first();
-            $quest = [];
-            $exam = Question::where('exam_id', '=', $id)->get();
-            foreach ($exam as $ex) {
-                $arr = [
-                    'question' => $ex['question'],
-                    'answers' => explode('***', $ex['answer']),
-                ];
-                array_push($quest, $arr);
+        
+        $link = route('pass_exam',session()->get(Auth::user()->id)['exam_name'].'&&'.session()->get(Auth::user()->id)['exam_id']);
+        if (url()->previous() != $link) {
+            return redirect($link);
+         } else {
+            if (session()->has(Auth::user()->id)) {
+                $id = session()->get(Auth::user()->id)['exam_id'];
+                $info = Exam::where('exam_id', '=', $id)->first();
+                $quest = [];
+                $exam = Question::where('exam_id', '=', $id)->get();
+                foreach ($exam as $ex) {
+                    $arr = [
+                        'question' => $ex['question'],
+                        'answers' => explode('***', $ex['answer']),
+                    ];
+                    array_push($quest, $arr);
+                }
+                $time = session()->get(Auth::user()->id)['time'];
+                $data = explode(' ', session()->get(Auth::user()->id)['data']);
+
+                return view('exam', ['quest' => $quest, 'info' => $info, 'time' => $time, 'data' => $data]);
+            } else {
+                $id = explode('&&', $name);
+                $info = Exam::where('exam_id', '=', $id[1])->first();
+                $data = [];
+                $quest = [];
+                $exam = Question::where('exam_id', '=', $id[1])->get();
+                foreach ($exam as $ex) {
+                    $arr = [
+                        'question' => $ex['question'],
+                        'answers' => explode('***', $ex['answer']),
+                    ];
+                    array_push($quest, $arr);
+                    array_push($data, 'null');
+                }
+                $time = $info['exam_time'] * 60;
+
+                return view('exam', ['quest' => $quest, 'info' => $info, 'time' => $time, 'data' => $data]);
             }
-            $time = session()->get(Auth::user()->id)['time'];
-            $data = explode(' ',session()->get(Auth::user()->id)['data']);
-            
-            return view('exam', ['quest' => $quest, 'info' => $info, 'time' => $time, 'data' => $data]);
-        } 
-        else {
-            $id = explode('&&', $name);
-            $info = Exam::where('exam_id', '=', $id[1])->first();
-            $data = [];
-            $quest = [];
-            $exam = Question::where('exam_id', '=', $id[1])->get();
-            foreach ($exam as $ex) {
-                $arr = [
-                    'question' => $ex['question'],
-                    'answers' => explode('***', $ex['answer']),
-                ];
-                array_push($quest, $arr);
-                array_push($data,'null');
-            }
-            $time = $info['exam_time']*60;
-            
-            return view('exam', ['quest' => $quest, 'info' => $info, 'time' => $time, 'data' => $data]);
         }
     }
     public function postExam(Request $request, $name)
