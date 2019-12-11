@@ -113,6 +113,9 @@ class ExamController extends Controller
     }
     public function postExam(Request $request, $name)
     {
+        session()->forget(Auth::user()->id);
+        session()->forget(Auth::user()->id);
+        session()->forget(Auth::user()->id);
         $answer = explode(',', $request->score);
         $exam = Question::where('exam_id', '=', $name)->select('rightAnswer')->get();
         $number = 0;
@@ -132,7 +135,7 @@ class ExamController extends Controller
 
         ];
         Scores::insert($arr);
-        session()->forget(Auth::user()->id);
+        
         return view('showScore', ['scores' => $scores, 'true' => $true, 'number' => $number]);
     }
     public function postSaveResultExam(Request $request)
