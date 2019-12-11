@@ -113,10 +113,7 @@ class ExamController extends Controller
     }
     public function postExam(Request $request, $name)
     {
-        session()->forget(Auth::user()->id);
-        if(session()->has(Auth::user()->id)){
-            session()->forget(Auth::user()->id);
-        }
+
         $answer = explode(',', $request->score);
         $exam = Question::where('exam_id', '=', $name)->select('rightAnswer')->get();
         $number = 0;
@@ -136,17 +133,21 @@ class ExamController extends Controller
 
         ];
         Scores::insert($arr);
-        
+
         return view('showScore', ['scores' => $scores, 'true' => $true, 'number' => $number]);
     }
     public function postSaveResultExam(Request $request)
     {
-        $arr = [
-            'exam_id' => $request->exam_id,
-            'exam_name' => $request->exam_name,
-            'time' => explode(' : ', $request->time)[0] * 60 + explode(' : ', $request->time)[1],
-            'data' => implode(' ', $request->data),
-        ];
-        $request->session()->put(Auth::user()->id, $arr);
+        if ($request->save == 'yes') {
+            $arr = [
+                'exam_id' => $request->exam_id,
+                'exam_name' => $request->exam_name,
+                'time' => explode(' : ', $request->time)[0] * 60 + explode(' : ', $request->time)[1],
+                'data' => implode(' ', $request->data),
+            ];
+            $request->session()->put(Auth::user()->id, $arr);
+        } else {
+            $request->session()->forget(Auth::user()->id);
+        }
     }
 }
