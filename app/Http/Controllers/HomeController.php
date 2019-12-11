@@ -37,8 +37,11 @@ class HomeController extends Controller
         }
         else{
             session()->forget(Auth::user()->id);
-            return redirect('/');
+            return redirect('/home');
         }
+    }
+    public function reIndex(){
+        return redirect('/home');
     }
     public function getMessenger($messenger){
         return view('messenger',['messenger'=>$messenger]);

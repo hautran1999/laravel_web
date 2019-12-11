@@ -13,10 +13,10 @@
 
 
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@reIndex')->name('home');
 Route::get('/home', 'HomeController@index');
 Route::post('/postCheck', 'HomeController@postCheckIndex')->name('check');
-Route::get('/messenger/{messenger}','HomeController@getMessenger')->name('messenger');
+Route::get('/messenger/{messenger}', 'HomeController@getMessenger')->name('messenger');
 Auth::routes();
 
 Route::get('/myexam', 'MyExamController@getMyExam');
@@ -33,7 +33,7 @@ Route::group(['middleware' => 'checksession'], function () {
     Route::get('/exam', 'ExamController@getExamList');
     Route::get('/exam/info/{name}', 'ExamController@getInfoExam')->name('info_exam');
     Route::get('/exam/report/{name}', 'ExamController@getReportExam')->name('report');
-    Route::post('/exam/postReport/{name}','ExamController@postReportExam')->name('post_report');
+    Route::post('/exam/postReport/{name}', 'ExamController@postReportExam')->name('post_report');
 });
 
 Route::get('/exam/test/password/{name}', 'ExamController@getPasswordExam')->name('pass_exam');
@@ -42,7 +42,7 @@ Route::get('/exam/test/{name}', 'ExamController@getExam')->name('test_exam');
 Route::post('/exam/test/scores/{name}', 'ExamController@postExam')->name('post_exam');
 Route::post('/exam/test/saveresult', 'ExamController@postSaveResultExam')->name('saveResult');
 
-Route::get('/profile','UserController@getProfile')->name('profile');
+Route::get('/profile', 'UserController@getProfile')->name('profile');
 Route::get('/contact', 'ContactController@getContact');
 
 
