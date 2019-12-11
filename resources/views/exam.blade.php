@@ -139,6 +139,7 @@
       				url:"{{ route('saveResult') }}",
       				method:"POST",
      				data:{
+						save:"yes",
 						exam_id:exam_id,
 			 			exam_name:exam_name,
 						data:data,
@@ -156,6 +157,14 @@
 		}
 		function SubmitFunction() {
 			submitted.innerHTML = "Time is up!";
+			$.ajax({
+      			url:"{{ route('saveResult') }}",
+      			method:"POST",
+     			data:{
+					save:"no",
+					_token:_token
+				},
+      		});
 			$('#submit').trigger('click');
 		}
 

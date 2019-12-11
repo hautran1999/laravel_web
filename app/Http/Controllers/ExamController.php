@@ -113,7 +113,9 @@ class ExamController extends Controller
     }
     public function postExam(Request $request, $name)
     {
-
+        if ($request->session()->has(Auth::user()->id)) {
+            $request->session()->forget(Auth::user()->id);
+        }
         $answer = explode(',', $request->score);
         $exam = Question::where('exam_id', '=', $name)->select('rightAnswer')->get();
         $number = 0;
