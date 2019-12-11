@@ -11,9 +11,9 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Subject</th>
-                    <th style="width:300px;" scope="col">Question</th>
-                    <th style="width:300px;" scope="col">Answer</th>
-                    <th scope="col">Right Answer</th>
+                    <th style="width:20%;" scope="col">Question</th>
+                    <th style="width:30%;" scope="col">Answer</th>
+                    <th style="width:12.5%;"scope="col">Right Answer</th>
                     <th scope="col">Handle</th>
                 </tr>
             </thead>
