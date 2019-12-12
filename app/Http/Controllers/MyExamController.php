@@ -28,11 +28,19 @@ class MyExamController extends Controller
      */
     public function getMyExam()
     {
+        // $exam = Exam::select('exam_id')->get();
+        // foreach ($exam as $ex) {
+        //     $q = Question::where('exam_id', '=', $ex['exam_id'])->get();
+        //     if (count($q) == 0) { 
+        //         Exam::where('exam_id', '=', $ex['exam_id'])->update(['running' => 0]);
+        //     }
+        //     // echo '<pre>'; print_r(count($q)); echo '</pre>';
+        // }
         $exam_created = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name')->where('exam.id', '=', Auth::user()->id)->get();
         $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'scores.id',)->where('scores.id', '=', Auth::user()->id)->distinct()->get();
         return view('myExam', ['exam_created' => $exam_created, 'exam_join' => $exam_join, 'i' => 1, 'j' => 1]);
-        //echo '<pre>'; print_r($exam_join); echo '</pre>';
     }
+    
     public function postMyExam(Request $request)
     {
         $arr = [
@@ -42,6 +50,7 @@ class MyExamController extends Controller
             'id' => Auth::user()->id,
             'created_at' => date("Y-m-d H:i:s"),
             'exam_time' => $request->exam_time,
+            'running' => 0,
             'exam_kind' => $request->input('exam_kind')
         ];
         Exam::insert($arr);
@@ -50,6 +59,7 @@ class MyExamController extends Controller
 
         return redirect($str);
     }
+
     public function deleteExam($id)
     {
         Exam::where('exam_id', '=', $id)->delete();
@@ -57,6 +67,7 @@ class MyExamController extends Controller
         Scores::where('exam_id', '=', $id)->delete();
         return redirect('/myexam');
     }
+
     public function getCreateExam($name)
     {
         $info = explode('&&', $name);
@@ -66,6 +77,7 @@ class MyExamController extends Controller
             return view('404');
         }
     }
+
     public function postCreateExam(Request $request)
     {
         foreach ($request->input('question') as $question) {
@@ -77,8 +89,10 @@ class MyExamController extends Controller
             ];
             Question::insert($arr);
         }
+        Exam::where('exam_id', '=', $request->input('exam_id'))->update(['running' => 1]);
         return redirect('/myexam');
     }
+
     public function getInfoExam($id)
     {
         $number = Question::where('exam_id', '=', explode('&&', $id)[1])->count();
