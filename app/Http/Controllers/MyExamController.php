@@ -40,7 +40,6 @@ class MyExamController extends Controller
         $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'scores.id',)->where('scores.id', '=', Auth::user()->id)->distinct()->get();
         return view('myExam', ['exam_created' => $exam_created, 'exam_join' => $exam_join, 'i' => 1, 'j' => 1]);
     }
-    
     public function postMyExam(Request $request)
     {
         $arr = [
@@ -59,7 +58,6 @@ class MyExamController extends Controller
 
         return redirect($str);
     }
-
     public function deleteExam($id)
     {
         Exam::where('exam_id', '=', $id)->delete();
@@ -67,7 +65,6 @@ class MyExamController extends Controller
         Scores::where('exam_id', '=', $id)->delete();
         return redirect('/myexam');
     }
-
     public function getCreateExam($name)
     {
         $info = explode('&&', $name);
@@ -77,7 +74,6 @@ class MyExamController extends Controller
             return view('404');
         }
     }
-
     public function postCreateExam(Request $request)
     {
         foreach ($request->input('question') as $question) {
@@ -133,6 +129,38 @@ class MyExamController extends Controller
             ];
             Question::insert($arr);
         }
+        Exam::where('exam_id', '=', $id)->update(['running' => 1]);
+        return redirect('/myexam');
+    }
+    public function getEditInfo($id)
+    {
+        return view('editInfoExam', ['id' => $id]);
+    }
+    public function postEditInfo($id, Request $request)
+    {
+        $id = explode('&&', $id)[1];
+
+        // Exam::where('exam_id', '=', $id)->update(['running' => 1]);
+        // $arr = [
+        //     'exam_name' => $request->exam_name,
+        //     'exam_password' => md5($request->exam_password),
+        //     'exam_describe' => $request->exam_describe,
+        //     'exam_time' => $request->exam_time,
+        //     'exam_kind' => $request->input('exam_kind')
+        // ];
+        if ($request->exam_name != '') {
+            Exam::where('exam_id', '=', $id)->update(['exam_name' => $request->exam_name]);
+        };
+        if ($request->exam_password != '') {
+            Exam::where('exam_id', '=', $id)->update(['exam_password' => $request->exam_password]);
+        };
+        if ($request->exam_describe != '') {
+            Exam::where('exam_id', '=', $id)->update(['exam_describe' => $request->exam_describe]);
+        };
+        if ($request->exam_time != '') {
+            Exam::where('exam_id', '=', $id)->update(['exam_time' => $request->exam_time]);
+        };
+
         return redirect('/myexam');
     }
 }
