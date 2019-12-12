@@ -69,7 +69,7 @@
                             <th scope="col">Subject</th>
                             <th style="width:250px;" scope="col">Describe</th>
                             <th scope="col">Create Date</th>
-                            <th scope="col">Handle</th>
+                            <th style="width:350px;" scope="col">Handle</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,10 +92,17 @@
                                     Info</a>
                                 <a href="{{route('edit',$ex->exam_name.'&&'.$ex->exam_id)}}"
                                     class="btn btn-primary"><span><i class="fa fa-edit"></i></span>
-                                    Edit</a>
+                                    Edit Exam</a>
+                                <a href="{{route('edit_info',$ex->exam_name.'&&'.$ex->exam_id)}}"
+                                    class="btn btn-primary"><span><i class="fa fa-edit"></i></span>
+                                    Edit Info</a>
+                                <a href="{{route('edit',$ex->exam_name.'&&'.$ex->exam_id)}}"
+                                    class="btn btn-primary"><span><i class="fa fa-edit"></i></span>
+                                    Off</a>
                                 <a href="{{route('delete_exam',$ex->exam_id)}}" class="btn btn-danger"><span><i
                                             class="fa fa-trash-o"></i></span>
                                     Delete</a>
+
                             </td>
                         </tr>
                         @endforeach
@@ -133,7 +140,7 @@
                                     <label style="float: left;">
                                         <h6>Exam Time :</h6>
                                     </label>
-                                    <input type="number" name="exam_time" class="form-control" required>
+                                    <input type="text" name="exam_time" class="form-control" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label style="float: left;">
