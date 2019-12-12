@@ -21,12 +21,20 @@ Auth::routes();
 
 Route::get('/myexam', 'MyExamController@getMyExam');
 Route::post('/myexam', 'MyExamController@postMyExam')->name('post_myexam');
+
 Route::get('/myexam/createexam/{name}', 'MyExamController@getCreateExam');
 Route::post('/myexam/createexam', 'MyExamController@postCreateExam')->name('post_create_exam');
+
 Route::get('/myexam/deleteexam/{id}', 'MyExamController@deleteExam')->name('delete_exam');
+
 Route::get('/myexam/info/{id}', 'MyExamController@getInfoExam')->name('info');
+
 Route::get('/myexam/edit/{id}', 'MyExamController@getEditExam')->name('edit');
 Route::post('/myexam/postedit/{id}', 'MyExamController@postEditExam')->name('postedit');
+
+Route::get('/myexam/editinfo/{id}', 'MyExamController@getEditInfo')->name('edit_info');
+Route::post('/myexam/posteditinfo/{id}', 'MyExamController@postEditInfo')->name('postedit_info');
+
 Route::get('/myexam/{id}', 'MyExamController@getCreateExam');
 
 Route::group(['middleware' => 'checksession'], function () {
@@ -55,4 +63,4 @@ Route::get('/admin/question', 'AdminController@getQuestionAdmin');
 Route::get('/admin/scores', 'AdminController@getScoresAdmin');
 Route::get('/admin/report', 'AdminController@getReportAdmin');
 
-
+Route::get('/test', 'HomeController@test');
