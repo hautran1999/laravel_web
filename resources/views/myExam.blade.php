@@ -133,7 +133,7 @@
                                     <label style="float: left;">
                                         <h6>Exam Time :</h6>
                                     </label>
-                                    <input type="text" name="exam_time" class="form-control" required>
+                                    <input type="number" name="exam_time" class="form-control" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label style="float: left;">
@@ -193,7 +193,7 @@
                             </td>
                             <td>{{$ex->exam_kind}}</td>
                             <td>{{$ex->exam_describe}}</td>
-                            
+
                             <td>
                                 <a href="{{route('pass_exam',$ex->exam_name.'&&'.$ex->exam_id)}}"
                                     class="btn btn-success"><span><i class="fa fa-graduation-cap"></i></span>
