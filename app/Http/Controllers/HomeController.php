@@ -46,11 +46,5 @@ class HomeController extends Controller
     public function getMessenger($messenger){
         return view('messenger',['messenger'=>$messenger]);
     }
-    public function test()
-    {
-        $array = session()->all();
-        echo '<pre>';
-        print_r($array);
-        echo '</pre>';
-    }
+    
 }
