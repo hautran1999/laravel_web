@@ -28,8 +28,8 @@ class MyExamController extends Controller
      */
     public function getMyExam()
     {
-        $exam_created = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name','exam_kind','exam_describe', 'exam.created_at', 'exam.id', 'name')->where('exam.id', '=', Auth::user()->id)->get();
-        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name','exam_kind', 'exam.exam_describe', 'scores.id',)->where('scores.id', '=', Auth::user()->id)->distinct()->get();
+        $exam_created = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name')->where('exam.id', '=', Auth::user()->id)->get();
+        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'scores.id',)->where('scores.id', '=', Auth::user()->id)->distinct()->get();
         return view('myExam', ['exam_created' => $exam_created, 'exam_join' => $exam_join, 'i' => 1, 'j' => 1]);
         //echo '<pre>'; print_r($exam_join); echo '</pre>';
     }
@@ -81,9 +81,13 @@ class MyExamController extends Controller
     }
     public function getInfoExam($id)
     {
+        $number = Question::where('exam_id', '=', explode('&&', $id)[1])->count();
+        $score = Scores::where('exam_id', '=', explode('&&', $id)[1])->select('scores')->get();
+        //echo '<pre>'; print_r($score); echo '</pre>';
+        //$score[4]['scores'];;
         $info = Exam::where('exam_id', '=', explode('&&', $id)[1])->first();
         $list = Scores::join('users', 'scores.id', '=', 'users.id')->select('scores', 'exam_id', 'scores.created_at', 'name')->where('exam_id', '=', explode('&&', $id)[1])->get();
-        return view('infoMyExam', ['info' => $info, 'list' => $list, 'i' => 1]);
+        return view('infoMyExam', ['info' => $info, 'list' => $list, 'number' => $number, 'scores' => $score, 'i' => 1]);
     }
     public function getEditExam($id)
     {
