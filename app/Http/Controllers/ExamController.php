@@ -25,7 +25,7 @@ class ExamController extends Controller
      */
     public function getExamList()
     {
-        $exam = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name')->get();
+        $exam = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name','running')->where('running','=',1)->get();
         return view('examList', ['exam' => $exam, 'i' => 1]);
     }
     public function getInfoExam($name)
