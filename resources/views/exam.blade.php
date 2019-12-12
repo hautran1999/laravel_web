@@ -151,20 +151,21 @@
 					--timer;
 				} else {
 					clearInterval(interVal)
+					var _token = $('input[name="_token"]').val();
+					$.ajax({
+      					url:"{{ route('saveResult') }}",
+      					method:"POST",
+     					data:{
+						save:"no",
+						_token:_token
+						},
+      				});
 					SubmitFunction();
 				}
 			}, 1000);
 		}
 		function SubmitFunction() {
 			submitted.innerHTML = "Time is up!";
-			$.ajax({
-      			url:"{{ route('saveResult') }}",
-      			method:"POST",
-     			data:{
-					save:"no",
-					_token:_token
-				},
-      		});
 			$('#submit').trigger('click');
 		}
 
