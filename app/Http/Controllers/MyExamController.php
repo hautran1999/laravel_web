@@ -36,9 +36,10 @@ class MyExamController extends Controller
         //     }
         //     // echo '<pre>'; print_r(count($q)); echo '</pre>';
         // }
-        $exam_created = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name')->where('exam.id', '=', Auth::user()->id)->get();
-        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'scores.id',)->where('scores.id', '=', Auth::user()->id)->distinct()->get();
-        return view('myExam', ['exam_created' => $exam_created, 'exam_join' => $exam_join, 'i' => 1, 'j' => 1]);
+        $exam_created = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')->where('exam.id', '=', Auth::user()->id)->get();
+        $exam_running = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')->where('exam.id', '=', Auth::user()->id)->where('running', '=', 1)->get();
+        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'exam.created_at', 'scores.id',)->where('scores.id', '=', Auth::user()->id)->distinct()->get();
+        return view('myExam', ['exam_created' => $exam_created, 'exam_join' => $exam_join, 'exam_running' => $exam_running, 'i' => 1, 'j' => 1, 'run' => 1]);
     }
     public function postMyExam(Request $request)
     {
@@ -58,6 +59,18 @@ class MyExamController extends Controller
 
         return redirect($str);
     }
+    public function runExam($id)
+    {
+        Exam::where('exam_id', '=', $id)->update(['running' => 1]);
+        return redirect('/myexam');
+    }
+
+    public function stopExam($id)
+    {
+        Exam::where('exam_id', '=', $id)->update(['running' => 0]);
+        return redirect('/myexam');
+    }
+
     public function deleteExam($id)
     {
         Exam::where('exam_id', '=', $id)->delete();
@@ -140,7 +153,7 @@ class MyExamController extends Controller
     {
         $id = explode('&&', $id)[1];
 
-        // Exam::where('exam_id', '=', $id)->update(['running' => 1]);
+        Exam::where('exam_id', '=', $id)->update(['running' => 1]);
         // $arr = [
         //     'exam_name' => $request->exam_name,
         //     'exam_password' => md5($request->exam_password),
