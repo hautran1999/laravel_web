@@ -65,4 +65,4 @@ Route::get('/admin/question', 'AdminController@getQuestionAdmin');
 Route::get('/admin/scores', 'AdminController@getScoresAdmin');
 Route::get('/admin/report', 'AdminController@getReportAdmin');
 
-Route::get('/test', 'HomeController@test');
+
