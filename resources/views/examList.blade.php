@@ -31,15 +31,28 @@
                         <td>{{$ex->exam_describe}}</td>
                         <td>{{$ex->created_at}}</td>
                         <td>
-                            <a href="{{route('pass_exam',$ex->exam_name.'&&'.$ex->exam_id)}}"
-                                class="btn btn-success"><span><i class="fa fa-graduation-cap"></i></span>
-                                Test</a>
-                            <a href="{{route('info_exam',$ex->exam_name.'&&'.$ex->exam_id)}}" class="btn btn-info"><span><i
-                                        class="fa fa-bar-chart"></i></span>
-                                Info</a>
-                            <a href="{{route('report',$ex->exam_name.'&&'.$ex->exam_id)}}"
-                                class="btn btn-danger"><span><i class="fa fa-exclamation-circle"></i></span>
-                                Report</a>
+                            <div class="row">
+                                <div class="col-sm-4 text-center">
+                                    <a href="{{route('pass_exam',$ex->exam_name.'&&'.$ex->exam_id)}}"><button
+                                            type="button" class="btn btn-success"><i
+                                                class="fa fa-graduation-cap"></i></button><br>
+                                        <p class="text-center">Test</p>
+                                    </a>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <a href="{{route('info_exam',$ex->exam_name.'&&'.$ex->exam_id)}}"><button
+                                            type="button" class="btn btn-info"><i
+                                                class="fa fa-bar-chart"></i></button><br>
+                                        <p class="text-center">Info</p>
+                                    </a>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                    <a href="{{route('report',$ex->exam_name.'&&'.$ex->exam_id)}}"><button type="button"
+                                            class="btn btn-danger"><i class="fa fa-exclamation-circle"></i></button><br>
+                                        <p class="text-center">Report</p>
+                                    </a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
