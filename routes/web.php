@@ -13,7 +13,7 @@
 
 
 
-Route::get('/', 'HomeController@reIndex')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index');
 Route::post('/postCheck', 'HomeController@postCheckIndex')->name('check');
 Route::get('/messenger/{messenger}', 'HomeController@getMessenger')->name('messenger');
@@ -35,6 +35,8 @@ Route::post('/myexam/postedit/{id}', 'MyExamController@postEditExam')->name('pos
 Route::get('/myexam/editinfo/{id}', 'MyExamController@getEditInfo')->name('edit_info');
 Route::post('/myexam/posteditinfo/{id}', 'MyExamController@postEditInfo')->name('postedit_info');
 
+Route::get('/myexam/runExam/{id}','MyExamController@runExam')->name('run_exam');
+Route::get('/myexam/stopExam/{id}','MyExamController@stopExam')->name('stop_exam');
 Route::get('/myexam/{id}', 'MyExamController@getCreateExam');
 
 Route::group(['middleware' => 'checksession'], function () {
