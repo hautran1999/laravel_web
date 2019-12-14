@@ -123,6 +123,7 @@
 
 			var timer = duration, minutes, seconds;
 			var interVal = setInterval(function () {
+				
 				minutes = parseInt(timer / 60, 10);
 				seconds = parseInt(timer % 60, 10);
 
@@ -187,6 +188,15 @@
 			return arr;
 		}
 		function showResults() {
+			var _token = $('input[name="_token"]').val();
+					$.ajax({
+      					url:"{{ route('saveResult') }}",
+      					method:"POST",
+     					data:{
+						save:"no",
+						_token:_token
+						},
+      				});
 			arr = takeAnswer();
 			$('#form').append(`<input type="hidden" name="score" value="${arr}">`)
 		}
