@@ -122,7 +122,7 @@
 			var minutes, seconds;
 			//console.log(duration);
 			var interVal = setInterval(function () {
-				console.log(timer);
+				//console.log(timer);
 				minutes = parseInt(timer / 60, 10);
 				seconds = parseInt(timer % 60, 10);
 
@@ -148,14 +148,14 @@
 							_token: _token
 							},
 						});
-				} else {
+						
+				} else if (timer==0) {
 					SubmitFunction();
 				}
 			}, 1000);
 		}
 		function SubmitFunction() {
 			submitted.innerHTML = "Time is up!";
-			
 			$('#submit').trigger('click');
 		}
 
@@ -178,7 +178,7 @@
 		}
 		function showResults() {
 			arr = takeAnswer();
-			timer = 0;
+			timer = -1;
 			$('#form').append(`<input type="hidden" name="score" value="${arr}">`)
 		}
 
