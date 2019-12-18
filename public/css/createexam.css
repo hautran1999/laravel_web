@@ -48,51 +48,30 @@ label.btn span {
     font-size: 1.5em;
 }
 
-label input[type="radio"]~i.fa.fa-circle-o {
+
+label input[type="radio"] {
+    display: none;
+}
+
+label input[type="radio"]~i.fa.fa-square-o {
     color: #c8c8c8;
     display: inline;
 }
 
-label input[type="radio"]~i.fa.fa-dot-circle-o {
+label input[type="radio"]~i.fa.fa-check-square-o {
     display: none;
 }
 
-label input[type="radio"]:checked~i.fa.fa-circle-o {
+label input[type="radio"]:checked~i.fa.fa-square-o {
     display: none;
 }
 
-label input[type="radio"]:checked~i.fa.fa-dot-circle-o {
+label input[type="radio"]:checked~i.fa.fa-check-square-o {
     color: #7AA3CC;
     display: inline;
 }
 
 label:hover input[type="radio"]~i.fa {
-    color: #7AA3CC;
-}
-
-label input[type="checkbox"] {
-    display: none;
-}
-
-label input[type="checkbox"]~i.fa.fa-square-o {
-    color: #c8c8c8;
-    display: inline;
-}
-
-label input[type="checkbox"]~i.fa.fa-check-square-o {
-    display: none;
-}
-
-label input[type="checkbox"]:checked~i.fa.fa-square-o {
-    display: none;
-}
-
-label input[type="checkbox"]:checked~i.fa.fa-check-square-o {
-    color: #7AA3CC;
-    display: inline;
-}
-
-label:hover input[type="checkbox"]~i.fa {
     color: #7AA3CC;
 }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
+use App\ExamSession;
 use App\Question;
 use App\ReportExam;
 use App\Scores;
@@ -25,25 +26,28 @@ class ExamController extends Controller
      */
     public function getExamList()
     {
-        $exam = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name','running')->where('running','=',1)->get();
+        $exam = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')->where('running', '=', 1)->get();
         return view('examList', ['exam' => $exam, 'i' => 1]);
     }
+
     public function getInfoExam($name)
     {
         $info = Exam::where('exam_id', '=', explode('&&', $name)[1])->first();
         $list = Scores::join('users', 'scores.id', '=', 'users.id')->select('scores', 'exam_id', 'scores.created_at', 'name', 'users.id')->where('exam_id', '=', explode('&&', $name)[1])->where('users.id', '=', Auth::user()->id)->get();
         return view('infoExam', ['info' => $info, 'list' => $list, 'i' => 1]);
     }
+
     public function getReportExam($name)
     {
         $info = explode('&&', $name);
         return view('report', ['info' => $info, 'name' => $name]);
     }
+
+
     public function postReportExam($name, Request $request)
     {
         $info = explode('&&', $name);
         $arr = [
-
             'id' => Auth::user()->id,
             'created_at' => date("Y-m-d H:i:s"),
             'report' => $request->report,
@@ -57,26 +61,42 @@ class ExamController extends Controller
     {
         return view('passwordExam', ['name' => $name]);
     }
+
     public function postPasswordExam($name, Request $request)
     {
         $id = explode('&&', $name);
         $info = Exam::where('exam_id', '=', $id[1])->select('exam_password')->first();
         if ($info['exam_password'] == md5($request->exam_password)) {
-            return redirect(route('test_exam', $name));
+            $exam_id = explode('&&', $name)[1];
+            $session = ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->get();
+            if (count($session) != 0) {
+                $sess = ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->first();
+                return view('continueExam', ['exam_name' => $sess['exam_name'], 'exam_id' => $sess['exam_id']]);
+            } else {
+                return redirect(route('test_exam', $name));
+            }
         } else {
             $messenger = 'Exam password is unsuccessful';
             return redirect(route('messenger', $messenger));
         }
     }
-    public function getExam($name, Request $request)
+    public function postCheckContinue($name, Request $request)
     {
-
-        // $link = route('pass_exam',session()->get(Auth::user()->id)['exam_name'].'&&'.session()->get(Auth::user()->id)['exam_id']);
-        // if (url()->previous() != $link) {
-        //     return redirect($link);
-        //  } else {
-        if (session()->has(Auth::user()->id)) {
-            $id = session()->get(Auth::user()->id)['exam_id'];
+        if ($request->check == 'yes') {
+            return redirect(route('test_exam', $name));
+        } else {
+            $exam_id = explode('&&', $name)[1];
+            ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->delete();
+            return redirect(route('test_exam', $name));
+        }
+    }
+    public function getExam($name)
+    {
+        $exam_id = explode('&&', $name)[1];
+        $session = ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->get();
+        if (count($session) != 0) {
+            $sess = ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->first();
+            $id = $sess['exam_id'];
             $info = Exam::where('exam_id', '=', $id)->first();
             $quest = [];
             $exam = Question::where('exam_id', '=', $id)->get();
@@ -87,8 +107,8 @@ class ExamController extends Controller
                 ];
                 array_push($quest, $arr);
             }
-            $time = session()->get(Auth::user()->id)['time'];
-            $data = explode(' ', session()->get(Auth::user()->id)['data']);
+            $time = $sess['time'];
+            $data = explode(' ', $sess['data']);
 
             return view('exam', ['quest' => $quest, 'info' => $info, 'time' => $time, 'data' => $data]);
         } else {
@@ -109,13 +129,9 @@ class ExamController extends Controller
 
             return view('exam', ['quest' => $quest, 'info' => $info, 'time' => $time, 'data' => $data]);
         }
-        // }
     }
     public function postExam(Request $request, $name)
     {
-        if ($request->session()->has(Auth::user()->id)) {
-            $request->session()->forget(Auth::user()->id);
-        }
         $answer = explode(',', $request->score);
         $exam = Question::where('exam_id', '=', $name)->select('rightAnswer')->get();
         $number = 0;
@@ -134,22 +150,21 @@ class ExamController extends Controller
             'exam_id' => $name,
 
         ];
+        ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $name)->delete();
         Scores::insert($arr);
 
         return view('showScore', ['scores' => $scores, 'true' => $true, 'number' => $number]);
     }
     public function postSaveResultExam(Request $request)
     {
-        if ($request->save == 'yes') {
-            $arr = [
-                'exam_id' => $request->exam_id,
-                'exam_name' => $request->exam_name,
-                'time' => explode(' : ', $request->time)[0] * 60 + explode(' : ', $request->time)[1],
-                'data' => implode(' ', $request->data),
-            ];
-            $request->session()->put(Auth::user()->id, $arr);
-        } else {
-            $request->session()->forget(Auth::user()->id);
-        }
+        $arr = [
+            'id' => Auth::user()->id,
+            'exam_id' => $request->exam_id,
+            'exam_name' => $request->exam_name,
+            'time' => explode(' : ', $request->time)[0] * 60 + explode(' : ', $request->time)[1],
+            'data' => implode(' ', $request->data),
+        ];
+        ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $request->exam_id)->delete();
+        ExamSession::insert($arr);
     }
 }

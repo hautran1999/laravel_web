@@ -8,6 +8,6 @@ class Question extends Model
 {
     protected $table = 'quest';
     protected $fillable = [
-        'exam_id', 'question','answer','rightAnswer'
+        'exam_id', 'question', 'answer', 'rightAnswer'
     ];
 }

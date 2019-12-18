@@ -27,9 +27,9 @@
                     <div class="classynav">
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><a href="/myexam">My Exam</a></li>
-                            <li><a href="/exam">Exam</a></li>
-                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="myexam">My Exam</a></li>
+                            <li><a href="exam">Exam</a></li>
+                            <li><a href="contact">Contact</a></li>
                         </ul>
 
                         <!-- Search Button -->
@@ -59,18 +59,18 @@
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
-                                        <a class="dropdown-item" href="{{route('profile')}}">Profile</a>
-                                        {{-- <a class="dropdown-item" href="#">Account Info</a> --}}
+                                        <a class="dropdown-item" href="#">Profile</a>
+                                        <a class="dropdown-item" href="#">Account Info</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            style="display: none;">
-                                            @csrf
-                                        </form>
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
                                     </div>
-
+                                    
                                 </div>
                             </div>
                         </div>

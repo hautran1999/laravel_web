@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="col-sm-1 btn-group btn-group-vertical text-center" data-toggle="buttons">
                                         <label class="btn active">
-                                            <input type="checkbox" name=${'question['+i+'][2][]'} value=${String.fromCharCode(number_question_answer[i][number_question_answer[i].length-1].charCodeAt(0)-1)}><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
+                                            <input type="radio" name=${'question['+i+'][2]'} value=${String.fromCharCode(number_question_answer[i][number_question_answer[i].length-1].charCodeAt(0)-1)}><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i>
                                         </label>
                                     </div>
                                     <div class="col-sm-1 text-center">

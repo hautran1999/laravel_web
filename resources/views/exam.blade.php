@@ -56,7 +56,7 @@
 <script>
 	(function () {
 		const myQuestions = @json($quest);
-		const time = @json($time);
+		var timer = @json($time);
 		const data = @json($data);
 		const info = @json($info);
 		function buildQuiz() {
@@ -81,14 +81,12 @@
 
 					// ...add an HTML radio button
 					answers.push(
-						`<div class="row showcase_row_area">
-            <div class="col-sm-2 showcase_content_area text-right">
-               <input type="radio" id=${'check'+questionNumber+letter} name="question${questionNumber}" value="${letter}">
-            </div>
-            <div class="col-sm-10 showcase_content_area">
-               ${letter} : ${currentQuestion.answers[i]}
-            </div>
-         </div>`
+						`<div class="funkyradio">
+						<div class="funkyradio-success">
+            				<input type="radio" name="question${questionNumber}" value="${letter}" id=${'check' + questionNumber + letter} />
+							<label for=${'check' + questionNumber + letter}>${letter} : ${currentQuestion.answers[i]}</label>
+        				</div>
+						</div>`
 					);
 				}
 
@@ -110,20 +108,21 @@
 
 			// finally combine our output list into one string of HTML and put it on the page
 			quizContainer.innerHTML = output.join("");
-			for(var i = 0; i < data.length;i++){
-				if(data[i]!='null'){
-					document.getElementById("check"+i+data[i]).checked = true;
+			for (var i = 0; i < data.length; i++) {
+				if (data[i] != 'null') {
+					document.getElementById("check" + i + data[i]).checked = true;
 				}
 			}
 		}
 
 		var div = document.getElementById('display');
 		var submitted = document.getElementById('submitted');
-		function CountDown(duration, display) {
-
-			var timer = duration, minutes, seconds;
+		function CountDown(display) {
+			
+			var minutes, seconds;
+			//console.log(duration);
 			var interVal = setInterval(function () {
-				
+				console.log(timer);
 				minutes = parseInt(timer / 60, 10);
 				seconds = parseInt(timer % 60, 10);
 
@@ -131,49 +130,39 @@
 				seconds = seconds < 10 ? "0" + seconds : seconds;
 				display.innerHTML = minutes + " : " + seconds;
 				
-				var time = display.innerHTML;
-				var exam_id = info['exam_id'];
-				var exam_name = info['exam_name'];
-				var data = takeAnswer();
-				var _token = $('input[name="_token"]').val();
-     			$.ajax({
-      				url:"{{ route('saveResult') }}",
-      				method:"POST",
-     				data:{
-						save:"yes",
-						exam_id:exam_id,
-			 			exam_name:exam_name,
-						data:data,
-						time:time,
-						_token:_token
-					},
-      			});
 				if (timer > 0) {
 					--timer;
-				} else {
-					clearInterval(interVal)
+					var time = display.innerHTML;
+					var exam_id = info['exam_id'];
+					var exam_name = info['exam_name'];
+					var data = takeAnswer();
 					var _token = $('input[name="_token"]').val();
 					$.ajax({
-      					url:"{{ route('saveResult') }}",
-      					method:"POST",
-     					data:{
-						save:"no",
-						_token:_token
-						},
-      				});
+						url: "{{ route('saveResult') }}",
+						method: "POST",
+						data: {
+							exam_id: exam_id,
+							exam_name: exam_name,
+							data: data,
+							time: time,
+							_token: _token
+							},
+						});
+				} else {
 					SubmitFunction();
 				}
 			}, 1000);
 		}
 		function SubmitFunction() {
 			submitted.innerHTML = "Time is up!";
+			
 			$('#submit').trigger('click');
 		}
 
-		function takeAnswer(){
+		function takeAnswer() {
 			const answerContainers = quizContainer.querySelectorAll(".answers");
 			let arr = [];
-			
+
 			myQuestions.forEach((currentQuestion, questionNumber) => {
 				const answerContainer = answerContainers[questionNumber];
 				const selector = `input[name=question${questionNumber}]:checked`;
@@ -188,16 +177,8 @@
 			return arr;
 		}
 		function showResults() {
-			var _token = $('input[name="_token"]').val();
-					$.ajax({
-      					url:"{{ route('saveResult') }}",
-      					method:"POST",
-     					data:{
-						save:"no",
-						_token:_token
-						},
-      				});
 			arr = takeAnswer();
+			timer = 0;
 			$('#form').append(`<input type="hidden" name="score" value="${arr}">`)
 		}
 
@@ -223,10 +204,12 @@
 
 		function showNextSlide() {
 			showSlide(currentSlide + 1);
+			
 		}
 
 		function showPreviousSlide() {
 			showSlide(currentSlide - 1);
+			
 		}
 
 		const quizContainer = document.getElementById("quiz");
@@ -243,7 +226,7 @@
 
 		showSlide(0);
 
-		CountDown(time, div);
+		CountDown(div);
 		// on submit, show results
 		submitButton.addEventListener("click", showResults);
 		previousButton.addEventListener("click", showPreviousSlide);

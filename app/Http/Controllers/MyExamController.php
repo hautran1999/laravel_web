@@ -19,7 +19,7 @@ class MyExamController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('checksession');
+
     }
     /**
      * Show the application dashboard.
@@ -28,17 +28,10 @@ class MyExamController extends Controller
      */
     public function getMyExam()
     {
-        // $exam = Exam::select('exam_id')->get();
-        // foreach ($exam as $ex) {
-        //     $q = Question::where('exam_id', '=', $ex['exam_id'])->get();
-        //     if (count($q) == 0) { 
-        //         Exam::where('exam_id', '=', $ex['exam_id'])->update(['running' => 0]);
-        //     }
-        //     // echo '<pre>'; print_r(count($q)); echo '</pre>';
-        // }
+        
         $exam_created = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')->where('exam.id', '=', Auth::user()->id)->get();
         $exam_running = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')->where('exam.id', '=', Auth::user()->id)->where('running', '=', 1)->get();
-        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'exam.created_at', 'scores.id',)->where('scores.id', '=', Auth::user()->id)->distinct()->get();
+        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'exam.created_at', 'scores.id','running')->where('scores.id', '=', Auth::user()->id)->distinct()->get();
         return view('myExam', ['exam_created' => $exam_created, 'exam_join' => $exam_join, 'exam_running' => $exam_running, 'i' => 1, 'j' => 1, 'run' => 1]);
     }
     public function postMyExam(Request $request)
@@ -94,7 +87,7 @@ class MyExamController extends Controller
                 'exam_id' => $request->input('exam_id'),
                 'question' => $question[0],
                 'answer' => implode('***', $question[1]),
-                'rightAnswer' => implode(' ', $question[2])
+                'rightAnswer' => $question[2]
             ];
             Question::insert($arr);
         }
@@ -154,13 +147,6 @@ class MyExamController extends Controller
         $id = explode('&&', $id)[1];
 
         Exam::where('exam_id', '=', $id)->update(['running' => 1]);
-        // $arr = [
-        //     'exam_name' => $request->exam_name,
-        //     'exam_password' => md5($request->exam_password),
-        //     'exam_describe' => $request->exam_describe,
-        //     'exam_time' => $request->exam_time,
-        //     'exam_kind' => $request->input('exam_kind')
-        // ];
         if ($request->exam_name != '') {
             Exam::where('exam_id', '=', $id)->update(['exam_name' => $request->exam_name]);
         };

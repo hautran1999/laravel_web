@@ -7,14 +7,14 @@
         <div class="col-4">
         </div>
         <div class="col-4">
-            <form action="{{route('check')}}" method="post" id="form">
+            <form action="{{route('continue',$exam_name.'&&'.$exam_id)}}" method="post" id="form">
                 @csrf
                 <div class="grid">
                     <div class="grid-header text-center">
                         <h5>Continue</h5>
                     </div>
                     <div class="grid-body text-center">
-                        <p>You not finish exam : {{$name}}</p>
+                        <p>You not finish exam : {{$exam_name}}</p>
                         <p>Do you want to continue</p>
                         
                         <input type="submit" id="no" onclick="check(this.id)" class="btn btn-danger" value="No">

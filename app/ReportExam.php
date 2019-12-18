@@ -8,6 +8,6 @@ class ReportExam extends Model
 {
     protected $table = 'report';
     protected $fillable = [
-        'exam_id', 'report', 'id','created_at'
+        'exam_id', 'report', 'id', 'created_at'
     ];
 }

@@ -58,6 +58,16 @@
                     </div>
                 </div>
             </div>
+            <div class="grid">
+                <div class="grid-header">
+                    <h5>Chart</h5>
+                </div>
+                <div class="grid-body">
+                    <canvas id="graph">
+
+                    </canvas>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
             <div class="grid">
@@ -101,22 +111,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="grid">
-                <div class="grid-header">
-                    <h5>Chart</h5>
-                </div>
-                <div class="grid-body">
-                    <canvas style="height:300px" id="graph">
-
-                    </canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
             <div class="grid">
                 <div class="grid-header">
                     <h5>List scores</h5>
@@ -150,6 +144,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 </div>
 

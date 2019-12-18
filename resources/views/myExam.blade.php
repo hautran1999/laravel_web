@@ -86,6 +86,14 @@
                             <td>{{$ex->created_at}}</td>
                             <td>
                                 <div class="row">
+                                    @if($ex->running==0)
+                                    <div class="col-sm-2 text-center">
+                                        <a><button type="button" class="btn btn-success" disabled><i
+                                                    class="fa fa-graduation-cap"></i></button><br>
+                                            <p class="text-center">Test</p>
+                                        </a>
+                                    </div>
+                                    @else
                                     <div class="col-sm-2 text-center">
                                         <a href="{{route('pass_exam',$ex->exam_name.'&&'.$ex->exam_id)}}"><button
                                                 type="button" class="btn btn-success"><i
@@ -93,6 +101,7 @@
                                             <p class="text-center">Test</p>
                                         </a>
                                     </div>
+                                    @endif
                                     <div class="col-sm-2 text-center">
                                         <a href="{{route('info',$ex->exam_name.'&&'.$ex->exam_id)}}"><button
                                                 type="button" class="btn btn-info"><i
@@ -325,6 +334,14 @@
 
                             <td>
                                 <div class="row">
+                                    @if($ex->running==0)
+                                    <div class="col-sm-4 text-center">
+                                        <a><button type="button" class="btn btn-success" disabled><i
+                                                    class="fa fa-graduation-cap"></i></button><br>
+                                            <p class="text-center">Test</p>
+                                        </a>
+                                    </div>
+                                    @else
                                     <div class="col-sm-4 text-center">
                                         <a href="{{route('pass_exam',$ex->exam_name.'&&'.$ex->exam_id)}}"><button
                                                 type="button" class="btn btn-success"><i
@@ -332,6 +349,7 @@
                                             <p class="text-center">Test</p>
                                         </a>
                                     </div>
+                                    @endif
                                     <div class="col-sm-4 text-center">
                                         <a href="{{route('info_exam',$ex->exam_name.'&&'.$ex->exam_id)}}"><button
                                                 type="button" class="btn btn-info"><i
