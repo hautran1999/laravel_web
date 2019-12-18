@@ -14,7 +14,7 @@
 
 
 Route::get('/', 'HomeController@reIndex');
-Route::get('/home', 'HomeController@index')->name('home');;
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/messenger/{messenger}', 'HomeController@getMessenger')->name('messenger');
 Auth::routes();
