@@ -6,7 +6,7 @@
     <div class="clever-main-menu">
         <div class="classy-nav-container breakpoint-off">
             <!-- Menu -->
-            <nav class="classy-navbar justify-content-between container">
+            <nav class="classy-navbar justify-content-between">
 
                 <a class="nav-brand" href="/">OnlineExam</a>
 
@@ -53,7 +53,7 @@
                         </div>
                         @else
                         <div class="login-state d-flex align-items-center">
-                            <div class="user-name mr-30">
+                            <div class="user-name mr-50 ml-50">
                                 <div class="dropdown">
                                     <a class="dropdown-toggle" href="#" role="button" id="userName"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
