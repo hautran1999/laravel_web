@@ -81,7 +81,7 @@
                                 <p>Number User : </p>
                             </div>
                             <div class="col-sm-8 showcase_content_area">
-                                <p></p>
+                                <p>{{$number_user}}</p>
                             </div>
                         </div>
                         <div class="row showcase_row_area">
@@ -89,7 +89,7 @@
                                 <p>Max Score : </p>
                             </div>
                             <div class="col-sm-8 showcase_content_area">
-                                <p></p>
+                                <p>{{$max}}</p>
                             </div>
                         </div>
                         <div class="row showcase_row_area">
@@ -97,7 +97,7 @@
                                 <p>Min Score : </p>
                             </div>
                             <div class="col-sm-8 showcase_content_area">
-                                <p></p>
+                                <p>{{$min}}</p>
                             </div>
                         </div>
                         <div class="row showcase_row_area">
@@ -105,7 +105,7 @@
                                 <p>Medium Score : </p>
                             </div>
                             <div class="col-sm-8 showcase_content_area">
-                                <p></p>
+                                <p>{{$avg}}</p>
                             </div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 </div>
 
