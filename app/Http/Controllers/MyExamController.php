@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
+use App\ExamSession;
 use App\Question;
 use App\Scores;
 use Illuminate\Http\Request;
@@ -28,14 +29,23 @@ class MyExamController extends Controller
     public function getMyExam()
     {
 
-        $exam_created = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')->where('exam.id', '=', Auth::user()->id)->get();
-        $exam_running = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')->where('exam.id', '=', Auth::user()->id)->where('running', '=', 1)->get();
-        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'exam.created_at', 'scores.id', 'running')->where('scores.id', '=', Auth::user()->id)->distinct()->get();
+        $exam_created = Exam::join('users', 'exam.id', '=', 'users.id')
+            ->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')
+            ->where('exam.id', '=', Auth::user()->id)
+            ->get();
+        $exam_running = Exam::join('users', 'exam.id', '=', 'users.id')
+            ->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')
+            ->where('exam.id', '=', Auth::user()->id)->where('running', '=', 1)
+            ->get();
+        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')
+            ->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'exam.created_at', 'scores.id', 'running')
+            ->where('scores.id', '=', Auth::user()->id)
+            ->distinct()
+            ->get();
         return view('myExam', ['exam_created' => $exam_created, 'exam_join' => $exam_join, 'exam_running' => $exam_running, 'i' => 1, 'j' => 1, 'run' => 1]);
     }
     public function searchCreateMyExam(Request $request)
     {
-        
     }
     public function postMyExam(Request $request)
     {
@@ -57,7 +67,8 @@ class MyExamController extends Controller
     }
     public function runExam($id)
     {
-        Exam::where('exam_id', '=', $id)->update(['running' => 1]);
+        Exam::where('exam_id', '=', $id)
+            ->update(['running' => 1]);
         return redirect('/myexam');
     }
 
@@ -72,6 +83,7 @@ class MyExamController extends Controller
         Exam::where('exam_id', '=', $id)->delete();
         Question::where('exam_id', '=', $id)->delete();
         Scores::where('exam_id', '=', $id)->delete();
+        ExamSession::where('exam_id', '=', $id)->delete();
         return redirect('/myexam');
     }
     public function getCreateExam($name)
@@ -101,12 +113,23 @@ class MyExamController extends Controller
     public function getInfoExam($id)
     {
         $number = Question::where('exam_id', '=', explode('&&', $id)[1])->count();
+        $number_user = Scores::where('exam_id', '=', explode('&&', $id)[1])
+            ->distinct()
+            ->count('id');
+        $min = Scores::where('exam_id', '=', explode('&&', $id)[1])
+            ->min('scores');
+        $max = Scores::where('exam_id', '=', explode('&&', $id)[1])
+            ->max('scores');
+        $avg = Scores::where('exam_id', '=', explode('&&', $id)[1])
+            ->avg('scores');
         $score = Scores::where('exam_id', '=', explode('&&', $id)[1])->select('scores')->get();
-        //echo '<pre>'; print_r($score); echo '</pre>';
-        //$score[4]['scores'];;
         $info = Exam::where('exam_id', '=', explode('&&', $id)[1])->first();
-        $list = Scores::join('users', 'scores.id', '=', 'users.id')->select('scores', 'exam_id', 'scores.created_at', 'name')->where('exam_id', '=', explode('&&', $id)[1])->get();
-        return view('infoMyExam', ['info' => $info, 'list' => $list, 'number' => $number, 'scores' => $score, 'i' => 1]);
+        $list = Scores::join('users', 'scores.id', '=', 'users.id')
+            ->select('scores', 'exam_id', 'scores.created_at', 'name')
+            ->where('exam_id', '=', explode('&&', $id)[1])
+            ->get();
+
+        return view('infoMyExam', ['info' => $info, 'list' => $list, 'number' => $number, 'scores' => $score, 'i' => 1, 'min' => $min, 'max' => $max, 'number_user' => $number_user, 'avg' => $avg]);
     }
     public function getEditExam($id)
     {
@@ -134,11 +157,12 @@ class MyExamController extends Controller
                 'exam_id' => $id,
                 'question' => $question[0],
                 'answer' => implode('***', $question[1]),
-                'rightAnswer' => implode(' ', $question[2])
+                'rightAnswer' => $question[2]
             ];
             Question::insert($arr);
         }
         Exam::where('exam_id', '=', $id)->update(['running' => 1]);
+        ExamSession::where('exam_id', '=', $id)->delete();
         return redirect('/myexam');
     }
     public function getEditInfo($id)
