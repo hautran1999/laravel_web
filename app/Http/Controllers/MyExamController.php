@@ -19,7 +19,6 @@ class MyExamController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-
     }
     /**
      * Show the application dashboard.
@@ -28,11 +27,15 @@ class MyExamController extends Controller
      */
     public function getMyExam()
     {
-        
+
         $exam_created = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')->where('exam.id', '=', Auth::user()->id)->get();
         $exam_running = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')->where('exam.id', '=', Auth::user()->id)->where('running', '=', 1)->get();
-        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'exam.created_at', 'scores.id','running')->where('scores.id', '=', Auth::user()->id)->distinct()->get();
+        $exam_join = Exam::join('scores', 'exam.exam_id', '=', 'scores.exam_id')->select('exam.exam_id', 'exam.exam_name', 'exam_kind', 'exam.exam_describe', 'exam.created_at', 'scores.id', 'running')->where('scores.id', '=', Auth::user()->id)->distinct()->get();
         return view('myExam', ['exam_created' => $exam_created, 'exam_join' => $exam_join, 'exam_running' => $exam_running, 'i' => 1, 'j' => 1, 'run' => 1]);
+    }
+    public function searchCreateMyExam(Request $request)
+    {
+        
     }
     public function postMyExam(Request $request)
     {

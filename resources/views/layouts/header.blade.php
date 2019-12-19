@@ -29,12 +29,14 @@
                             <li><a href="/">Home</a></li>
                             <li><a href="/myexam">My Exam</a></li>
                             <li><a href="/exam">Exam</a></li>
+                            <li><a href="/randomexam">Random Exam</a></li>
                             <li><a href="/contact">Contact</a></li>
                         </ul>
 
                         <!-- Search Button -->
                         <div class="search-area">
-                            <form action="#" method="post">
+                            <form action="{{route('search')}}" method="post">
+                                @csrf
                                 <input type="search" name="search" id="search" placeholder="Search">
                                 <button><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>

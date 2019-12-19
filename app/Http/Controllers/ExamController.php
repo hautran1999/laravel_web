@@ -69,11 +69,28 @@ class ExamController extends Controller
         if ($info['exam_password'] == md5($request->exam_password)) {
             $exam_id = explode('&&', $name)[1];
             $session = ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->get();
-            if (count($session) != 0) {
-                $sess = ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->first();
-                return view('continueExam', ['exam_name' => $sess['exam_name'], 'exam_id' => $sess['exam_id']]);
+
+            if (session()->has(Auth::user()->id)) {
+                if (session()->get(Auth::user()->id)['exam_id'] == $exam_id) {
+                    $sess = session()->get(Auth::user()->id);
+                    return view('continueExam', ['exam_name' => $sess['exam_name'], 'exam_id' => $sess['exam_id']]);
+                } else {
+                    ExamSession::insert(session()->get(Auth::user()->id));
+                    session()->forget(Auth::user()->id);
+                    if (count($session) != 0) {
+                        $sess = ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->first();
+                        return view('continueExam', ['exam_name' => $sess['exam_name'], 'exam_id' => $sess['exam_id']]);
+                    } else {
+                        return redirect(route('test_exam', $name));
+                    }
+                }
             } else {
-                return redirect(route('test_exam', $name));
+                if (count($session) != 0) {
+                    $sess = ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->first();
+                    return view('continueExam', ['exam_name' => $sess['exam_name'], 'exam_id' => $sess['exam_id']]);
+                } else {
+                    return redirect(route('test_exam', $name));
+                }
             }
         } else {
             $messenger = 'Exam password is unsuccessful';
@@ -86,15 +103,41 @@ class ExamController extends Controller
             return redirect(route('test_exam', $name));
         } else {
             $exam_id = explode('&&', $name)[1];
+            session()->forget(Auth::user()->id);
             ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->delete();
             return redirect(route('test_exam', $name));
         }
     }
+
+    public function searchExam(Request $request)
+    {
+        $search = $request->search;
+        $exam = Exam::join('users', 'exam.id', '=', 'users.id')->select('exam_id', 'exam_name', 'exam_kind', 'exam_describe', 'exam.created_at', 'exam.id', 'name', 'running')->where('running', '=', 1)->orWhere('name', 'like', '%' . $search . '%')->get();
+        return view('searchExam', ['exam' => $exam, 'i' => 1]);
+    }
+
     public function getExam($name)
     {
         $exam_id = explode('&&', $name)[1];
         $session = ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->get();
-        if (count($session) != 0) {
+        if (session()->has(Auth::user()->id)) {
+            $sess = session()->get(Auth::user()->id);
+            $id = $sess['exam_id'];
+            $info = Exam::where('exam_id', '=', $id)->first();
+            $quest = [];
+            $exam = Question::where('exam_id', '=', $id)->get();
+            foreach ($exam as $ex) {
+                $arr = [
+                    'question' => $ex['question'],
+                    'answers' => explode('***', $ex['answer']),
+                ];
+                array_push($quest, $arr);
+            }
+            $time = $sess['time'];
+            $data = explode(' ', $sess['data']);
+
+            return view('exam', ['quest' => $quest, 'info' => $info, 'time' => $time, 'data' => $data]);
+        } else if (count($session) != 0) {
             $sess = ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $exam_id)->first();
             $id = $sess['exam_id'];
             $info = Exam::where('exam_id', '=', $id)->first();
@@ -151,6 +194,7 @@ class ExamController extends Controller
 
         ];
         ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $name)->delete();
+        session()->forget(Auth::user()->id);
         Scores::insert($arr);
 
         return view('showScore', ['scores' => $scores, 'true' => $true, 'number' => $number]);
@@ -164,7 +208,6 @@ class ExamController extends Controller
             'time' => explode(' : ', $request->time)[0] * 60 + explode(' : ', $request->time)[1],
             'data' => implode(' ', $request->data),
         ];
-        ExamSession::where('id', '=', Auth::user()->id)->where('exam_id', '=', $request->exam_id)->delete();
-        ExamSession::insert($arr);
+        session()->put(Auth::user()->id, $arr);
     }
 }

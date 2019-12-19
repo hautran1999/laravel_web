@@ -18,11 +18,12 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
     public function reIndex()
     {
         return redirect('/home');
     }
-
+    
     public function getMessenger($messenger)
     {
         return view('messenger', ['messenger' => $messenger]);

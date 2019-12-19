@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/myexam', 'MyExamController@getMyExam');
 Route::post('/myexam', 'MyExamController@postMyExam')->name('post_myexam');
+Route::post('/myexam/searchcreate', 'MyExamController@searchCreateMyExam')->name('search_create');
 
 Route::get('/myexam/createexam/{name}', 'MyExamController@getCreateExam');
 Route::post('/myexam/createexam', 'MyExamController@postCreateExam')->name('post_create_exam');
@@ -44,7 +45,7 @@ Route::get('/exam', 'ExamController@getExamList');
 Route::get('/exam/info/{name}', 'ExamController@getInfoExam')->name('info_exam');
 Route::get('/exam/report/{name}', 'ExamController@getReportExam')->name('report');
 Route::post('/exam/postReport/{name}', 'ExamController@postReportExam')->name('post_report');
-
+Route::post('/search', 'ExamController@searchExam')->name('search');
 
 Route::get('/exam/test/password/{name}', 'ExamController@getPasswordExam')->name('pass_exam');
 Route::post('/exam/test/postpassword/{name}', 'ExamController@postPasswordExam')->name('post_pass_exam');
@@ -53,6 +54,10 @@ Route::post('/exam/test/postContinue/{name}', 'ExamController@postCheckContinue'
 Route::get('/exam/test/{name}', 'ExamController@getExam')->name('test_exam');
 Route::post('/exam/test/scores/{name}', 'ExamController@postExam')->name('post_exam');
 Route::post('/exam/test/saveresult', 'ExamController@postSaveResultExam')->name('saveResult');
+
+Route::get('/randomexam', 'RandomController@getRandom');
+Route::post('/randomexam/exam','RandomController@getRandomExam')->name('random_exam');
+Route::post('/randomexam/result','RandomController@getResultExam')->name('result_exam');
 
 Route::get('/profile', 'UserController@getProfile')->name('profile');
 Route::get('/contact', 'ContactController@getContact');
