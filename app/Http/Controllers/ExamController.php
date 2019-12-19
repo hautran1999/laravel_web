@@ -33,8 +33,17 @@ class ExamController extends Controller
     public function getInfoExam($name)
     {
         $info = Exam::where('exam_id', '=', explode('&&', $name)[1])->first();
+        $number_user = Scores::where('exam_id', '=', explode('&&', $name)[1])
+            ->distinct()
+            ->count('id');
+        $min = Scores::where('exam_id', '=', explode('&&', $name)[1])
+            ->min('scores');
+        $max = Scores::where('exam_id', '=', explode('&&', $name)[1])
+            ->max('scores');
+        $avg = Scores::where('exam_id', '=', explode('&&', $name)[1])
+            ->avg('scores');
         $list = Scores::join('users', 'scores.id', '=', 'users.id')->select('scores', 'exam_id', 'scores.created_at', 'name', 'users.id')->where('exam_id', '=', explode('&&', $name)[1])->where('users.id', '=', Auth::user()->id)->get();
-        return view('infoExam', ['info' => $info, 'list' => $list, 'i' => 1]);
+        return view('infoExam', ['info' => $info, 'list' => $list, 'i' => 1, 'min' => $min, 'max' => $max, 'number_user' => $number_user, 'avg' => $avg]);
     }
 
     public function getReportExam($name)
