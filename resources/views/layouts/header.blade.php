@@ -53,7 +53,7 @@
                         </div>
                         @else
                         <div class="login-state d-flex align-items-center">
-                            <div class="user-name mr-50 ml-50">
+                            <div class="user-name mr-30 ml-50">
                                 <div class="dropdown">
                                     <a class="dropdown-toggle" href="#" role="button" id="userName"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
